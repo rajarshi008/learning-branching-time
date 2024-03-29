@@ -4,6 +4,31 @@ import random
 from ltlf2dfa.parser.ltlf import LTLfParser
 from Scarlet.formulaTree import Formula
 
+
+class Kripke:
+
+	def __init__(self, init_state, transitions, labels):
+		self.init_state = init_state
+		self.transitions = transitions
+		self.states = transitions.keys()
+		self.labels = labels
+		self.
+
+
+	def successor_states(self, current_state):
+
+
+	def predecessor_states(self, )
+
+
+
+
+
+
+
+
+
+
 class DFA:
 	def __init__(self, init_state, final_states, transitions):
 		self.final_states = final_states
