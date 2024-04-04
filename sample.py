@@ -10,9 +10,9 @@ class Sample:
 		self.negative = negative
 	
 	def calc_stats(self):
-		self.num_postive = len(self.positive)
+		self.num_positive = len(self.positive)
 		self.num_negative = len(self.negative)
-		self.num_total = self.num_postive + self.num_negative
+		self.num_total = self.num_positive + self.num_negative
 		all_props = []
 		for structure in self.positive+self.negative:
 			all_props += structure.propositions

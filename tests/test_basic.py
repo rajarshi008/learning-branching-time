@@ -1,11 +1,9 @@
 import os
-import pytest
-from lark import Lark, Transformer
 from formulas import CTLFormula
 from graph_structures import Kripke
 from sample import SampleKripke
+from std_modelcheck import *
 
-folder_path = 'learning-branching-time/tests/'
 
 # Testing formula classes
 def test_formulas():
@@ -19,23 +17,42 @@ def test_formulas():
 
 # Testing graph structures
 def test_structures():
-    #Kripke 1
-    kripke = Kripke()
-    structure_path = os.path.join(os.path.dirname(__file__), 'inputs', 'example_kripke.str')
-    kripke.read_structure_file(structure_path)
-    actual_labels = {'s0': ['p','q'], 's1': ['q'], 's2': [''], 's3': ['p']}
-    actual_transitions = {'s0': ['s0'], 's1': ['s2'], 's2': ['s0', 's3'], 's3': ['s3']}
-    actual_states = ['s0', 's1', 's2', 's3']
-    actual_init_states = ['s0']
-    actual_propositions = ['p', 'q']
 
+    #Kripke 1
+    kripke = Kripke(init_states=set(), transitions={}, labels={}, propositions=set())
+    structure_path = os.path.join(os.path.dirname(__file__), 'inputs', 'example_kripke1.str')
+    kripke.read_structure_file(structure_path)
+    actual_labels = {0: {'p','q'}, 1: {'q'}, 2: set(), 3: {'p'}}
+    actual_transitions = {0: {0}, 1: {2}, 2: {0, 3}, 3: {3}}
+    actual_states = {0, 1, 2, 3}
+    actual_init_states = {0}
+    actual_propositions = {'p', 'q'}
+    print(kripke.labels, actual_labels )
     assert(kripke.labels == actual_labels)
     assert(kripke.transitions == actual_transitions)
     assert(kripke.states == actual_states)
     assert(kripke.init_states == actual_init_states)
     assert(kripke.propositions == actual_propositions)
     assert(len(kripke.states) == 4)
-    
+
+    #Kripke2
+    kripke = Kripke(init_states=set(), transitions={}, labels={}, propositions=set())
+    structure_path = os.path.join(os.path.dirname(__file__), 'inputs', 'example_kripke2.str')
+    kripke.read_structure_file(structure_path)
+    actual_labels = {0: {'p'}, 1: {'p'}, 2: {'q'}, 3: set(), 4: {'p'}}
+    actual_transitions = {0: {1, 3}, 1: {2}, 2: {2}, 3: {4}, 4: {0}}
+    actual_states = {0, 1, 2, 3, 4}
+    actual_init_states = {0}
+    actual_propositions = {'p', 'q'}
+    assert(kripke.labels == actual_labels)
+    assert(kripke.transitions == actual_transitions)
+    assert(kripke.states == actual_states)
+    assert(kripke.init_states == actual_init_states)
+    assert(kripke.propositions == actual_propositions)
+    assert(len(kripke.states) == 5)
+   
+
+
 # Testing sample classes
 def test_samples():
     sample = SampleKripke()
@@ -49,3 +66,32 @@ def test_samples():
         print(structure)
         assert(len(structure.states) == 4)
         assert(len(structure.propositions) == 2)
+
+# Testing standard CTL model checking
+def test_modelcheck_ctl():
+    #Kripke 2
+    kripke = Kripke(init_states=set(), transitions={}, labels={}, propositions=set())
+    structure_path = os.path.join(os.path.dirname(__file__), 'inputs', 'example_kripke2.str')
+    kripke.read_structure_file(structure_path)
+
+    #Formulas
+    formula_results = [
+        ('p', True),
+        ('AX(p)', False),
+        ('EX(p)', True),
+        ('AG(p)', False),
+        ('EG(p)', False),
+        ('AF(p)', True),
+        ('EF(p)', True),
+        ('AU(p,q)', False),
+        ('EU(p,q)', True),
+    ]
+
+    for formula_str, expected_result in formula_results:
+        formula = CTLFormula.convertTextToFormula(formula_str)
+        modelchecker = ModelChecker(model=kripke, formula=formula)
+        result = modelchecker.check()
+        #print(modelchecker.SatSetCTL)
+        assert result == expected_result
+    
+test_modelcheck_ctl()

@@ -4,23 +4,22 @@ from graphviz import Source
 epsilon = ''
 
 class Kripke:
-	def __init__(self, init_states=[], transitions={}, labels={}, propositions=[]):
+	def __init__(self, init_states=set(), transitions={}, labels={}, propositions=set()):
 		self.init_states = init_states
 		self.transitions = transitions
 		self.labels = labels
-		self.states = list(transitions.keys())
+		self.states = set(transitions.keys())
 		self.propositions = propositions
 		if propositions == []:
-			self.propositions = sorted(list(set(label for state in self.states for label in self.labels[state])))
+			self.propositions = set(label for state in self.states for label in self.labels[state])
 			if epsilon in self.propositions:
 				self.propositions.remove(epsilon)
 
 	def calc_stats(self):
 		
-		self.propositions = sorted(list(set(label for state in self.states for label in self.labels[state])))
+		self.propositions = set(label for state in self.states for label in self.labels[state])
 		if epsilon in self.propositions:
 			self.propositions.remove(epsilon)
-
 
 	def successors(self, state):
 		return self.transitions[state]
@@ -43,18 +42,21 @@ class Kripke:
 			Transitions
 		'''
 		init_states_str, labels_str, transitions_str = kripke_str.split('---\n')
-		self.init_states = init_states_str.strip().split(',')
+		self.init_states = set(int(state) for state in init_states_str.strip().split(','))
 		labels_dict_str = labels_str.strip().split('\n')
 		for label_str in labels_dict_str:
 			state, prop_str = label_str.strip().split(':')
-			self.labels[state] = prop_str.split(',')
-		self.states = list(self.labels.keys())
+			if prop_str == '':
+				self.labels[int(state)] = set()
+			else:	
+				self.labels[int(state)] = set(prop_str.split(','))
+		self.states = set(self.labels.keys())
 
 		transitions_dict_str = transitions_str.strip().split('\n')
-		self.transitions = {state: [] for state in self.states}
+		self.transitions = {state: set() for state in self.states}
 		for transition_str in transitions_dict_str:
 			state1, state2 = transition_str.strip().split(',')
-			self.transitions[state1].append(state2)
+			self.transitions[int(state1)].add(int(state2))
 		
 		self.calc_stats()
 

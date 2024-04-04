@@ -88,7 +88,7 @@ class CTLFormula(SimpleTree):
 	'''
 	A class for encoding syntax Trees and syntax DAGs of CTL formulas
 	'''
-	def __init__(self, formulaArg = "dummyF"):
+	def __init__(self, formulaArg):
 		self.size = None
 		if not isinstance(formulaArg, str):
 			self.label = formulaArg[0]
