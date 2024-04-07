@@ -1,7 +1,18 @@
 
 from graphviz import Source
+import random
 
 epsilon = ''
+
+def generate_random_kripke(max_in_deg, max_out_deg, num_states, transition_density, propositions):
+	'''Generates a random Kripke structure with given parameters'''
+	rand_kripke = Kripke(init_states=set(), transitions={}, labels={}, propositions=propositions)
+	rand_kripke.add_init_state()
+	for _ in range(1, num_states):
+		rand_kripke.add_random_state(in_deg=max_in_deg, out_deg=max_out_deg)
+	if transition_density == 'low':
+		rand_kripke.reduce_transitions()
+	return rand_kripke
 
 class Kripke:
 	def __init__(self, init_states=set(), transitions={}, labels={}, propositions=set()):
@@ -20,6 +31,7 @@ class Kripke:
 		self.propositions = set(label for state in self.states for label in self.labels[state])
 		if epsilon in self.propositions:
 			self.propositions.remove(epsilon)
+		self.size = len(self.states)
 
 	def successors(self, state):
 		return self.transitions[state]
@@ -60,8 +72,81 @@ class Kripke:
 		
 		self.calc_stats()
 
+
+	def add_init_state(self, self_loop_prob=0.1):
+		init_state = 0
+		self.init_states.add(init_state)
+		self.states.add(init_state)
+
+		self.labels[init_state] = set(random.choices(list(self.propositions), k=random.randint(0, len(self.propositions))))
+		self_loop = random.choices([0,1], [1-self_loop_prob, self_loop_prob], k=1)[0]
+		
+		if self_loop:
+			self.transitions[init_state] = {init_state}
+		else:
+			self.transitions[init_state] = set()
+
+
+	def add_random_state(self, in_deg=2, out_deg=2, transition_density='low'):
+		'''
+		Generates random states with random transitions for the state (ensuring connectedness)
+		'''
+		new_state = len(self.states)
+		self.states.add(new_state)
+		self.labels[new_state] = set(random.choices(list(self.propositions), k=random.randint(0, len(self.propositions))))		
+		self.transitions[new_state] = set()
+		
+		if transition_density == 'low' or transition_density == 'med':
+			max_instates = max(1,len(self.states)//4)
+			max_outstates = max(1,len(self.states)//4)
+			#special method to reduce transitions for intermediate states
+			
+
+		if transition_density == 'high':
+			max_instates = max(1,len(self.states)//2)
+			max_outstates = max(1,len(self.states)//2)
+
+		eligible_instates = [state for state in self.states if len(self.transitions[state]) < out_deg and state != new_state]
+		if eligible_instates == []:
+			raise ValueError('No states with outdegree less than %d'%out_deg)
+		instate = random.choices(eligible_instates, k=random.randint(1, max_instates))
+		#print(new_state, 'instate size', len(instate))
+
+		for state in instate:
+			self.transitions[state].add(new_state)
+
+		eligible_outstates = [state for state in self.states if len(self.predecessors(state)) < in_deg]
+		if eligible_outstates == []:
+			raise ValueError('No states with indegree less than %d'%in_deg)
+		outstate = random.choices(eligible_outstates, k=random.randint(1, max_outstates))
+		#print(new_state, 'outstate size', len(outstate))
+
+		for state in outstate:
+			self.transitions[new_state].add(state)
+		print(new_state, 'transitions', self.transitions[new_state])
+
+	def reduce_transitions(self, reduction_prob=0.9, num=1):
+		'''
+		Heursitic to reduce transitions in the Kripke structure ensuring connectedness
+		'''
+
+		for state in self.states:
+			remove = random.choices([0,1], [1-reduction_prob, reduction_prob], k=1)[0]
+			if len(self.transitions[state]) == 1 or not remove:
+				continue
+			stateComplement = set(other_state for other_state in self.states if other_state != state)
+			if stateComplement & self.transitions[state] != 0:
+				removable_states = set(other_state for other_state in self.states if other_state <= state) & self.transitions[state]
+				if not removable_states:
+					continue
+				else:
+					self.transitions[state] = self.transitions[state] - set(random.choices(list(removable_states), k=num))
+
 	def __str__(self):
-		'''Prints the Kripke structure in a human readable way'''
+		'''
+		Prints the Kripke structure in a human readable way
+		'''
+		
 		string = "Kripke structure:\n"
 		string += "Initial state: " + str(self.init_states) + "\n"
 		string += "States: " + str(self.states) + "\n"
@@ -73,7 +158,21 @@ class Kripke:
 			string += str(state) + " -> " + str(self.labels[state]) + "\n"
 
 		return string
-	
+		
+
+	def to_string(self):
+		'''Prints the Kripke structure in a machine readable way'''
+		string = ''
+		string += ','.join([str(state) for state in self.init_states]) + '\n'
+		string += '---\n'
+		for state in self.states:
+			string += str(state) + ':' + ','.join(self.labels[state]) + '\n'
+		string += '---\n'
+		for state in self.states:
+			for succ in self.transitions[state]:
+				string += str(state) + ',' + str(succ) + '\n'
+		return string
+
 
 	def to_dot(self, filename='dummy.str'):
 		'''Creates a .dot file of the Kripke structure'''
@@ -121,3 +220,7 @@ class Concurrent_Game_Structure:
 #k = Kripke()
 #k.read_structure_file('example_kripke.str')
 #k.show()
+#k = generate_random_kripke(max_in_deg=4, max_out_deg=4, num_states=10, propositions={'p', 'q'})
+#k.show()
+#print(k.write_format())
+

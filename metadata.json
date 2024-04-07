@@ -1,0 +1,23 @@
+{
+    "Sample": "tests/inputs/small_example_sample.sp",
+    "Size Bound": 3,
+    "Operators": [
+        "EG",
+        "EF",
+        "EX",
+        "AG",
+        "AF",
+        "AX",
+        "!",
+        "&",
+        "|",
+        "->",
+        "EU",
+        "AU"
+    ],
+    "Encoding Time": 0,
+    "Solving Time": 0,
+    "Total Time": 0,
+    "Learned Formula": null,
+    "Learned Formula Size": null
+}

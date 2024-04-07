@@ -1,21 +1,6 @@
 from formulas import CTLFormula
-from sample import SampleKripke
 from graph_structures import Kripke
 from operators import *
-
-
-def consistency_checker(sample, formula):
-	for structure in sample.positive:
-		checker = ModelChecker(model=structure, formula=formula)
-		if not checker.check():
-			#print(structure)
-			return False
-	for structure in sample.negative:
-		checker = ModelChecker(model=structure, formula=formula)
-		if checker.check():
-			#print(structure)
-			return False
-	return True
 
 
 class ModelChecker():
@@ -60,32 +45,39 @@ class ModelChecker():
 					
 			# case analysis for different operators
 			if formula.label == '&':
+				
 				self.SatSetCTL[formula] = left_set & right_set
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == '|':
+				
 				self.SatSetCTL[formula] = left_set | right_set
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == '->':
+				
 				self.SatSetCTL[formula] = self.stateComplement(left_set) | right_set
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == '!':
+				
 				self.SatSetCTL[formula] = self.stateComplement(left_set)
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'EX':
+				
 				self.SatSetCTL[formula] = {state for state in self.model.states \
 										   if self.model.successors(state) & left_set}
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'AX':
+				
 				self.SatSetCTL[formula] = {state for state in self.model.states \
 										   if self.model.successors(state).issubset(left_set)}
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'EF':
+				
 				lfp = left_set
 				while True:
 					pre_lfp = {state for state in self.model.states - lfp if self.model.successors(state) & lfp}
@@ -97,6 +89,7 @@ class ModelChecker():
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'AF':
+				
 				lfp = left_set
 				while True:
 					pre_lfp = {state for state in self.model.states - lfp if self.model.successors(state).issubset(lfp)}
@@ -108,10 +101,10 @@ class ModelChecker():
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'EG':
+				
 				gfp = left_set
 				while True:
 					post_gfp = {state for state in gfp if not (self.model.successors(state) & gfp)}
-
 					if post_gfp == set():
 						break
 					else:
@@ -121,6 +114,7 @@ class ModelChecker():
 				return self.SatSetCTL[formula]
 			
 			elif formula.label == 'AG':
+				
 				gfp = left_set
 				while True:
 					post_gfp = {state for state in gfp if not (self.model.successors(state).issubset(gfp))}
@@ -158,7 +152,6 @@ class ModelChecker():
 	# some aux functions
 	def stateComplement(self, state_set):
 		return set(self.model.states) - state_set
-	
 
 		
 	def check_cgs_atl(self):
@@ -166,4 +159,8 @@ class ModelChecker():
 		if self.formula == None:
 			return None	 
 	
-			
+#formula = CTLFormula.convertTextToFormula('EU(p,q)')
+#sample = SampleKripke()
+#sample_path = 'tests/inputs/small_example_sample.sp'
+#sample.read_sample(sample_path)
+#print(consistency_checker(sample, formula))

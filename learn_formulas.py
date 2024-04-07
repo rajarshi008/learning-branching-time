@@ -9,10 +9,13 @@ from std_modelcheck import consistency_checker
 
 class LearnFramework:
 
-	def __init__(self, sample_file='tests/inputs/example_sample.sp', size_bound=10, operators=ctl_operators, json_file='metadata.json'):
+	def __init__(self, sample_file='tests/inputs/example_sample.sp', size_bound=10,\
+			  			 operators=ctl_operators, solver_name='z3'):
 		self.sample_file = sample_file
 		self.size_bound = size_bound
 		self.operators = operators
+		self.solver_name = solver_name
+		self.json_file = sample_file.split('/')[-1].split('.')[0] + '.json'
 
 		# Time stats
 		self.enc_time = 0
@@ -22,21 +25,22 @@ class LearnFramework:
 		# Learning stats
 		self.learned_formula = None
 		self.learned_formula_size = None
-
-		self.metadata = {'Sample': self.sample_file, 'Size Bound': self.size_bound,
-						 'Operators': self.operators, 'Encoding Time':self.enc_time,
-						 'Solving Time': self.solving_time, 'Total Time': self.total_time,
-						 'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size
-						}
 		
+		self.metadata = {'Sample': self.sample_file, 'Size Bound': self.size_bound, 'Solver': self.solver_name,
+						'Encoding Time':self.enc_time,'Solving Time': self.solving_time, 'Total Time': self.total_time,
+						'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size
+						}
+		self.dump_json(self.json_file)
+
+
 	def learn_ctl(self):
 
-		sample = SampleKripke()
+		sample = SampleKripke(positive=[], negative=[], propositions=[])
 		sample.read_sample(self.sample_file)
 		formula = None
 
 		enc_time_incr = time.time() 
-		enc = CTLSATEncoding(sample, sample.propositions, self.operators)
+		enc = CTLSATEncoding(sample, sample.propositions, self.operators, self.solver_name)
 		enc_time_incr = time.time() - enc_time_incr
 		self.enc_time += enc_time_incr
 
@@ -51,7 +55,9 @@ class LearnFramework:
 			# SAT solving
 			solving_time_incr = time.time()
 			solverRes = enc.solver.solve()
-			print('Solved for size %d'%size, solverRes)
+			solving_time_incr = time.time() - solving_time_incr
+			self.solving_time += solving_time_incr
+			
 			if solverRes == True:
 				#print('sat')
 				solverModel = enc.solver.get_model()
@@ -62,9 +68,7 @@ class LearnFramework:
 				print("Found formula {}".format(formula.prettyPrint()))
 				break
 			
-			solving_time_incr = time.time() - solving_time_incr
-			self.solving_time += solving_time_incr
-
+		
 		# Formula verification
 		if formula != None:
 			ver = consistency_checker(sample, formula)
@@ -73,6 +77,16 @@ class LearnFramework:
 				raise Exception('Incorrect Formula found')
 		else:		
 			print('No formula found within %d size bound'%size)
+
+		self.metadata.update({'Encoding Time':self.enc_time, 'Solving Time': self.solving_time,
+							  'Total Time': self.enc_time + self.solving_time, 'Learned Formula': formula.prettyPrint(),
+							  'Learned Formula Size': size, 'Verification': ver})
+
+		self.dump_json(self.json_file)
+
+		return formula
+
+
 
 	def dump_json(self, json_file='metadata.json'):
 		with open(json_file, 'w') as f:
@@ -83,15 +97,17 @@ def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
 	parser.add_argument('-f', '--input_file', default='tests/inputs/small_example_sample.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=3, type=int, help='The size of the formula')
-	parser.add_argument('-o', '--operators', nargs='+', default=ctl_boolean+['AX'], help='Choice of CTL operators')
+	parser.add_argument('-o', '--operators', nargs='+', default=ctl_operators, help='Choice of CTL operators')
+	parser.add_argument('-z', '--solver', default='z3', choices=['z3', 'msat'], help='Choice of solver; note you must have the chosen solver installed')
 
 	args = parser.parse_args()
 
 	#print(f"Input file: {args.input_file}")
 	#print(f"Formula size: {args.formula_size}")
 	#print(f"CTL operators: {args.operators}")
-	print(args.operators)
-	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size, operators=args.operators)
+
+	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
+							 operators=args.operators, solver_name=args.solver)
 	learn.learn_ctl()
 
 if __name__ == "__main__":

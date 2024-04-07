@@ -88,7 +88,7 @@ class CTLFormula(SimpleTree):
 	'''
 	A class for encoding syntax Trees and syntax DAGs of CTL formulas
 	'''
-	def __init__(self, formulaArg):
+	def __init__(self, formulaArg='dummy'):
 		self.size = None
 		if not isinstance(formulaArg, str):
 			self.label = formulaArg[0]
@@ -253,36 +253,36 @@ def merge(operator, formula1, formula2):
 	"""
 	if formula1.label == formula2.label:
 		if operator == "&":
-				if formula1.label == 'X' or formula1.label == 'G':
-					return CTLFormula([formula1.label, merge('&', formula1.left, formula2.left)])
-				if formula1.label == '!':
-					return CTLFormula([formula1.label, merge('|', formula1.left, formula2.left)])
-				if formula1.label == '&' or formula1.label == '|':
-					if formula1.left == formula2.left:
-						return CTLFormula([formula1.label, formula1.left, merge('&',formula1.right, formula2.right)])
-					elif formula1.left == formula2.right:
-						return CTLFormula([formula1.label, formula1.left, merge('&',formula1.right, formula2.left)])
-					elif formula1.right == formula2.left:
-						return CTLFormula([formula1.label, formula1.right, merge('&',formula1.left, formula2.right)])
-					elif formula1.right == formula2.right:
-						return CTLFormula([formula1.label, formula1.right, merge('&',formula1.left, formula2.left)])
+			if formula1.label == 'X' or formula1.label == 'G':
+				return CTLFormula([formula1.label, merge('&', formula1.left, formula2.left)])
+			if formula1.label == '!':
+				return CTLFormula([formula1.label, merge('|', formula1.left, formula2.left)])
+			if formula1.label == '&' or formula1.label == '|':
+				if formula1.left == formula2.left:
+					return CTLFormula([formula1.label, formula1.left, merge('&',formula1.right, formula2.right)])
+				elif formula1.left == formula2.right:
+					return CTLFormula([formula1.label, formula1.left, merge('&',formula1.right, formula2.left)])
+				elif formula1.right == formula2.left:
+					return CTLFormula([formula1.label, formula1.right, merge('&',formula1.left, formula2.right)])
+				elif formula1.right == formula2.right:
+					return CTLFormula([formula1.label, formula1.right, merge('&',formula1.left, formula2.left)])
 
 
 
 		elif operator == "|":			
-				if formula1.label == 'X' or formula1.label == 'F':
-					return CTLFormula([formula1.label, merge('|', formula1.left, formula2.left)])
-				if formula1.label == '!':
-					return CTLFormula([formula1.label, merge('&', formula1.left, formula2.left)])
-				if formula1.label == '&' or formula1.label == '|':
-					if formula1.left == formula2.left:
-						return CTLFormula([formula1.label, formula1.left, merge('|',formula1.right, formula2.right)])
-					elif formula1.left == formula2.right:
-						return CTLFormula([formula1.label, formula1.left, merge('|',formula1.right, formula2.left)])
-					elif formula1.right == formula2.left:
-						return CTLFormula([formula1.label, formula1.right, merge('|',formula1.left, formula2.right)])
-					elif formula1.right == formula2.right:
-						return CTLFormula([formula1.label, formula1.right, merge('|',formula1.left, formula2.left)])
+			if formula1.label == 'X' or formula1.label == 'F':
+				return CTLFormula([formula1.label, merge('|', formula1.left, formula2.left)])
+			if formula1.label == '!':
+				return CTLFormula([formula1.label, merge('&', formula1.left, formula2.left)])
+			if formula1.label == '&' or formula1.label == '|':
+				if formula1.left == formula2.left:
+					return CTLFormula([formula1.label, formula1.left, merge('|',formula1.right, formula2.right)])
+				elif formula1.left == formula2.right:
+					return CTLFormula([formula1.label, formula1.left, merge('|',formula1.right, formula2.left)])
+				elif formula1.right == formula2.left:
+					return CTLFormula([formula1.label, formula1.right, merge('|',formula1.left, formula2.right)])
+				elif formula1.right == formula2.right:
+					return CTLFormula([formula1.label, formula1.right, merge('|',formula1.left, formula2.left)])
 
 		
 	return CTLFormula([operator, formula1, formula2])

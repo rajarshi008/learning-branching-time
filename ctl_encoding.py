@@ -5,9 +5,10 @@ from pysmt.shortcuts import Symbol, And, Or, Implies, Solver, Not, ExactlyOne, B
 
 class CTLSATEncoding:
 	
-	def __init__(self, sample, propositions, operators):
+	def __init__(self, sample, propositions, operators, solver_name):
 		
-		self.solver = Solver()
+		print('Using %s solver'%solver_name)
+		self.solver = Solver(name=solver_name)
 		self.sample = sample
 		self.propositions = propositions
 		self.operators = operators
@@ -24,6 +25,7 @@ class CTLSATEncoding:
 		self.r = {}
 		self.l = {}
 		self.y = {}
+		self.aux_y = {}
 
 	"""
 	the working variables are 
@@ -47,13 +49,17 @@ class CTLSATEncoding:
 		self.y.update({ (formula_size - 1, kripke_id, state): Symbol('y_%d_%d_%d'%(formula_size - 1,kripke_id,state))
 						for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative) for state in kripke.states})
 		
+		self.aux_y.update({(formula_size - 1, kripke_id, state, dist): Symbol('y_%d_%d_%d_%d'%(formula_size - 1,kripke_id,state,dist))
+						for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative) for state in kripke.states
+						for dist in range(kripke.size+1)})
+		
 		if formula_size > 1:
 			self.solver.pop()
 			self.solver.pop()
 
 		#if formula_size == 3:
 		#	self.solver.add_assertion(And([self.x[(2, '&')], self.x[(1, 'p')], self.x[(0, 'q')], self.l[(2, 1)], self.r[(2, 0)]]))
-			self.solver.add_assertion(And([self.x[(1, 'AX')], self.x[(0, 'q')], self.l[(1, 0)]]))
+		#	self.solver.add_assertion(And([self.x[(1, 'AX')], self.x[(0, 'q')], self.l[(1, 0)]]))
 
 		# Structural Constraints
 		self.exactlyOneOperator(formula_size)	   
@@ -88,8 +94,7 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, p)],\
 									And([Iff(self.y[(i, kripke_id, state)], Bool(p in kripke.labels[state]))\
 									for state in kripke.states\
-										])\
-										))
+										])))
 			
 		
 	def exactlyOneOperator(self, formula_size):
@@ -104,14 +109,14 @@ class CTLSATEncoding:
 											)))
 			
 
-		if i > 0:		
-
+		if i > 0:
+			
 			self.solver.add_assertion(Implies(Or([self.x[(i, op)] for op in self.operators]),\
 												ExactlyOne([self.l[k] for k in self.l if k[0]==i])))										  
-	
+
 			self.solver.add_assertion(Implies(Or([self.x[(i, op)] for op in self.binary_operators]),\
 												ExactlyOne([self.r[k] for k in self.r if k[0] == i])))
-
+			
 			self.solver.add_assertion(Implies(Or([self.x[(i, op)] for op in self.unary_operators]),\
 										Not(Or([self.r[k] for k in self.r if k[0] == i]))))
 
@@ -145,13 +150,13 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, '!')],\
 													And([\
 														Implies(\
-																	self.l[(i,onlyArg)],\
+																	self.l[(i,only_arg)],\
 																	And([Iff(self.y[(i, kripke_id, state)],\
-																		Not(self.y[(onlyArg, kripke_id, state)]))
+																		Not(self.y[(only_arg, kripke_id, state)]))
 																	for state in kripke.states\
 																	])\
 																	)\
-														for onlyArg in range(i)\
+														for only_arg in range(i)\
 														])\
 													))
 
@@ -161,14 +166,14 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, '|')],\
 														And([ Implies(\
 																	   And(\
-																		   [self.l[i, leftArg], self.r[i, rightArg]]\
+																		   [self.l[i, left_arg], self.r[i, right_arg]]\
 																		   ),\
 																	   	And([Iff(self.y[(i, kripke_id, state)],
-																	   			Or(self.y[(leftArg, kripke_id, state)], self.y[(rightArg, kripke_id, state)]))
+																	   			Or(self.y[(left_arg, kripke_id, state)], self.y[(right_arg, kripke_id, state)]))
 																	   			for state in kripke.states\
 																			])\
 																	   )\
-																	  for leftArg in range(i) for rightArg in range(i) ])))
+																	  for left_arg in range(i) for right_arg in range(i) ])))
 
 			
 
@@ -179,14 +184,14 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, '&')],\
 														And([ Implies(\
 																	   And(\
-																		   [self.l[i, leftArg], self.r[i, rightArg]]\
+																		   [self.l[i, left_arg], self.r[i, right_arg]]\
 																		   ),\
 																	   	And([Iff(self.y[(i, kripke_id, state)],
-																	   			And(self.y[(leftArg, kripke_id, state)], self.y[(rightArg, kripke_id, state)]))
+																	   			And(self.y[(left_arg, kripke_id, state)], self.y[(right_arg, kripke_id, state)]))
 																	   			for state in kripke.states\
 																			])\
 																	   )\
-																	  for leftArg in range(i) for rightArg in range(i) ])))
+																	  for left_arg in range(i) for right_arg in range(i) ])))
 				
 			if '->' in self.operators:
 				#conjunction
@@ -194,27 +199,27 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, '->')],\
 														And([ Implies(\
 																	   And(\
-																		   [self.l[i, leftArg], self.r[i, rightArg]]\
+																		   [self.l[i, left_arg], self.r[i, right_arg]]\
 																		   ),\
 																	   	And([Iff(self.y[(i, kripke_id, state)],
-																	   			Implies(self.y[(leftArg, kripke_id, state)], self.y[(rightArg, kripke_id, state)]))
+																	   			Implies(self.y[(left_arg, kripke_id, state)], self.y[(right_arg, kripke_id, state)]))
 																	   			for state in kripke.states\
 																			])\
 																	   )\
-																	  for leftArg in range(i) for rightArg in range(i) ])))
+																	  for left_arg in range(i) for right_arg in range(i) ])))
 				
 			if 'EX' in self.operators:
 				#EX
 				self.solver.add_assertion(Implies(self.x[(i, 'EX')],\
 													And([\
 														Implies(\
-																	self.l[(i,onlyArg)],\
+																	self.l[(i,only_arg)],\
 																	And([Iff(self.y[(i, kripke_id, state)],\
-																		Or([self.y[(onlyArg, kripke_id, succ)] for succ in kripke.successors(state)]))
+																		Or([self.y[(only_arg, kripke_id, succ)] for succ in kripke.successors(state)]))
 																	for state in kripke.states\
 																	])\
 																	)\
-														for onlyArg in range(i)\
+														for only_arg in range(i)\
 														])\
 													))
 			
@@ -223,34 +228,192 @@ class CTLSATEncoding:
 				self.solver.add_assertion(Implies(self.x[(i, 'AX')],\
 													And([\
 														Implies(\
-																	self.l[(i,onlyArg)],\
+																	self.l[(i,only_arg)],\
 																	And([Iff(self.y[(i, kripke_id, state)],\
-																		And([self.y[(onlyArg, kripke_id, succ)] for succ in kripke.successors(state)]))
+																		And([self.y[(only_arg, kripke_id, succ)] for succ in kripke.successors(state)]))
 																	for state in kripke.states\
 																	])\
 																	)\
-														for onlyArg in range(i)\
+														for only_arg in range(i)\
 														])\
 													))
 			
+			if 'EG' in self.operators:
+				#EG
+				self.solver.add_assertion(Implies(self.x[(i, 'EG')],\
+													And([\
+														Implies(\
+																	self.l[(i,only_arg)],\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsEG(i,only_arg)])\
+																	)\
+														for only_arg in range(i)\
+														])\
+													))
 
-			# #if 'U' in self.operators:
-			# 	#conjunction
-			# 	#print('For U', i, signal_id)
+			if 'AG' in self.operators:
+				#AG
+				self.solver.add_assertion(Implies(self.x[(i, 'AG')],\
+													And([\
+														Implies(\
+																	self.l[(i,only_arg)],\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsAG(i,only_arg)])\
+																	)\
+														for only_arg in range(i)\
+														])\
+													))
 
-			# 	self.solver.add_assertion(Implies(self.x[(i, 'U')],\
-			# 											And([ Implies(\
-			# 														   And(\
-			# 															   [self.l[i, leftArg], self.r[i, rightArg]]\
-			# 															   ),\
-			# 														   	U_itv(self.itvs[(leftArg,signal_id)], self.itvs[(rightArg,signal_id)],\
-			# 														   			 self.itvs[(i,signal_id)], self.a[i], self.b[i], i, signal_id,\
-			# 														   			 self.num_itvs[(leftArg,signal_id)], self.num_itvs[(rightArg,signal_id)],\
-			# 														   			  self.num_itvs[(i,signal_id)], self.end_time)\
-			# 														   )\
-			# 														  for leftArg in range(i) for rightArg in range(i) ])))
-					
-		
+			if 'EF' in self.operators:
+				#EF
+				self.solver.add_assertion(Implies(self.x[(i, 'EF')],\
+													And([\
+														Implies(\
+																	self.l[(i,only_arg)],\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsEF(i,only_arg)])\
+																	)\
+														for only_arg in range(i)\
+														])\
+													))
+
+			if 'AF' in self.operators:
+				#AG
+				self.solver.add_assertion(Implies(self.x[(i, 'AF')],\
+													And([\
+														Implies(\
+																	self.l[(i,only_arg)],\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsAF(i,only_arg)])\
+																	)\
+														for only_arg in range(i)\
+														])\
+													))
+			
+			if 'EU' in self.operators:
+				#EU
+				self.solver.add_assertion(Implies(self.x[(i, 'EU')],\
+													And([\
+														Implies(\
+																	And(self.l[(i,left_arg)], self.r[(i,right_arg)]),\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsEU(i,left_arg,right_arg)])\
+																	)\
+														for left_arg in range(i) for right_arg in range(i)\
+														])\
+													))
+
+			if 'AU' in self.operators:
+				#AU
+				self.solver.add_assertion(Implies(self.x[(i, 'AU')],\
+													And([\
+														Implies(\
+																	And(self.l[(i,left_arg)], self.r[(i,right_arg)]),\
+																	And([Iff(self.y[(i, kripke_id, state)],\
+																		self.aux_y[(i,kripke_id,state,kripke.size)])
+																	for state in kripke.states\
+																	]+[self.auxConstraintsAU(i,left_arg,right_arg)])\
+																	)\
+														for left_arg in range(i) for right_arg in range(i)\
+														])\
+													))
+	
+	
+	def auxConstraintsEG(self, i, j):
+
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(j, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											And(self.y[(j, kripke_id, state)],
+			   								Or([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)]))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+	
+	
+	
+	def auxConstraintsAG(self, i, j):
+
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(j, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											And(self.y[(j, kripke_id, state)],
+			   								And([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)]))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+	
+	
+	
+	def auxConstraintsEF(self, i, j):
+
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(j, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											Or(self.aux_y[(i, kripke_id, state, dist)],
+			   								Or([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)]))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+	
+	def auxConstraintsAF(self, i, j):
+
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(j, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											Or(self.aux_y[(i, kripke_id, state, dist)],
+			   								And([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)]))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+
+	def auxConstraintsEU(self, i, j, k):
+
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(k, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											Or(self.aux_y[(i, kripke_id, state, dist)],
+			  								And(self.y[(j,kripke_id, state)],\
+			   								Or([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)])))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+
+	def auxConstraintsAU(self, i, j, k):
+	
+		aux_formula = Bool(True)
+		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+			for state in kripke.states:
+				aux_formula = And(aux_formula, Iff(self.aux_y[(i, kripke_id, state, 0)], self.y[(k, kripke_id, state)]))
+				aux_formula = And([aux_formula]+[Iff(\
+											self.aux_y[(i, kripke_id, state, dist+1)],\
+											Or(self.aux_y[(i, kripke_id, state, dist)],
+			  								And(self.y[(j,kripke_id, state)],\
+			   								And([self.aux_y[(i, kripke_id, succ, dist)] for succ in kripke.successors(state)])))\
+											) for dist in range(kripke.size)])
+		return aux_formula
+	
+
 	def reconstructWholeFormula(self, model, formula_size):
 
 		return self.reconstructFormula(model, formula_size-1)
