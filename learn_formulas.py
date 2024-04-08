@@ -104,8 +104,8 @@ class LearnFramework:
 
 def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
-	parser.add_argument('-f', '--input_file', default='random_sample.sp', help='The input sample file')
-	parser.add_argument('-s', '--formula_size', default=3, type=int, help='The size of the formula')
+	parser.add_argument('-f', '--input_file', default='test_suite/increasing_sample/ex_sample10.sp', help='The input sample file')
+	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=ctl_operators, help='Choice of CTL operators')
 	parser.add_argument('-z', '--solver', default='z3', choices=['z3', 'msat'], help='Choice of solver; note you must have the chosen solver installed')
 

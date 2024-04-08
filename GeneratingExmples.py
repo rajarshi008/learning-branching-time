@@ -20,7 +20,7 @@ def GenerateSample(n):
 if not os.path.exists('test_suite/increasing_sample'):
 	os.makedirs('test_suite/increasing_sample')
 
-for i in range(10,101,10):
+for i in range(5,16):
 	s = GenerateSample(i)
 	s.write('test_suite/increasing_sample/ex_sample'+str(i)+'.sp')
 
