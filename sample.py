@@ -72,7 +72,7 @@ class SampleKripke(Sample):
 			
 			self.calc_stats()
 
-	def generate_random_sample(self, file_path, total_num_positive=10, total_num_negative=10, formula=None, total_trials=1000):
+	def generate_random(self, file_path, total_num_positive=10, total_num_negative=10, formula=None, total_trials=10000):
 		'''
 		Generates a random sample of Kripke structures
 		'''
@@ -82,10 +82,13 @@ class SampleKripke(Sample):
 		trials = 0
 		num_positive = 0
 		num_negative = 0
-		print('*********** Generating samples for formula %s ***********'%formula.prettyPrint())
 
-		while num_positive < total_num_positive or num_negative < total_num_negative or trials < total_trials:
+		while True:
 			trials += 1
+			if trials == total_trials:
+				break
+			
+			
 			transition_density = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
 			num_states = random.randint(2, 10)
 			max_deg = random.randint(2, 4)
@@ -93,24 +96,23 @@ class SampleKripke(Sample):
 				rand_kripke = generate_random_kripke(max_deg, max_deg, num_states, transition_density, self.propositions)
 			except:
 				continue
-			checker = ModelChecker(model=rand_kripke, formula=formula)
 			
+			checker = ModelChecker(model=rand_kripke, formula=formula)
+
 			if checker.check() and num_positive < total_num_positive:
 				self.positive.append(rand_kripke)
 				num_positive += 1
 			elif not checker.check() and num_negative < total_num_negative:
 				self.negative.append(rand_kripke)
 				num_negative += 1
-			
-			if num_positive == total_num_positive and num_negative == total_num_negative:
+			elif num_positive == total_num_positive and num_negative == total_num_negative:
 				break
-		
+
 		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(num_positive, num_negative, trials))		
 		self.calc_stats()
 		self.write(file_path)
 
 	def write(self, file_path):
-		print(file_path)
 		# create file path if it does not exist
 		
 		with open(file_path, 'w') as file:
@@ -124,6 +126,10 @@ class SampleKripke(Sample):
 #example.show()
 #print(example)
 
-#formula = CTLFormula.convertTextToFormula("|(AG(p),EF(q))")
-#sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
-#sample.generate_random_sample('random_sample.sp', 10, 10, formula, 1000)
+#formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))']
+
+#for formula_name in formula_list:
+#	formula = CTLFormula.convertTextToFormula(formula_name)
+#	sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
+#	sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
+

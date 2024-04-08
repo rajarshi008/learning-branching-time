@@ -123,7 +123,7 @@ class Kripke:
 
 		for state in outstate:
 			self.transitions[new_state].add(state)
-		print(new_state, 'transitions', self.transitions[new_state])
+		#print(new_state, 'transitions', self.transitions[new_state])
 
 	def reduce_transitions(self, reduction_prob=0.9, num=1):
 		'''

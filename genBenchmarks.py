@@ -2,7 +2,7 @@
 import argparse
 import os, shutil
 import datetime
-from sample import Sample, SampleKripke
+from sample import Sample, SampleKripke, consistency_checker
 from formulas import CTLFormula
 
 
@@ -11,13 +11,12 @@ class SampleGenerator:
 	sample generator class
 	'''
 	def __init__(self,
-				formula_file = 'Scarlet/formulas.txt',
+				formula_file = 'test_suite/formulas.txt',
 				trace_type = 'trace',
 				sample_sizes = [(10,10),(50,50)],
 				trace_lengths = [(6,6)],
-				output_folder = 'Scarlet/' + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
-				total_num = 1,
-				gen_method = 'dfa_method'):
+				output_folder = 'test_suite/Random_generated/' + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
+				total_num = 1):
 
 		self.formula_file = formula_file
 		
@@ -57,8 +56,8 @@ class SampleGenerator:
 		else:	
 			sample_sizes = self.sample_sizes
 
-		traces_folder = self.output_folder+'/TracesFiles/' 
-		os.makedirs(traces_folder)
+		sample_folder = self.output_folder+'/Kripke/' 
+		os.makedirs(sample_folder)
 
 		#if trace_type == 'words':
 		#	words_folder = output_folder+'/TracesFiles/'
@@ -79,20 +78,17 @@ class SampleGenerator:
 				formula = CTLFormula.convertTextToFormula(formula_text)
 		
 				formula_num+=1
-				print('---------------Generating Benchmarks for formula %s---------------'%formula.prettyPrint())
+				print('---------------Generating Benchmarks for formula %s---------------'%(formula.prettyPrint()))
 				
-				for size in sample_sizes:
-					for length_range in self.trace_lengths:
-						for num in range(self.total_num):
-							length_mean = (length_range[0]+length_range[1])//2
-							sample=Sample(positive=[], negative=[])
+				for size in sample_sizes:				
+					print('* Generating for size: %d, %d'%(size[0],size[1]))
 
-							trace_file = traces_folder+'f:'+str(formula_num).zfill(2)+'-'+'nw:'+str((size[0]+size[1])//2).zfill(3)+'-'+'ml:'+str(length_mean).zfill(2)+'-'+str(num)+'.trace'
-							generated_files.append(trace_file)
-							sample.generator(formula=formula, length_range=length_range, num_traces=size, propositions=propositions, 
-													filename=trace_file, is_words=(self.trace_type=='words'), operators=self.operators)
-							
-							assert sample.isFormulaConsistent(formula)
+					sample_file = sample_folder+'f:'+str(formula_num).zfill(2)+'-'+'nw:'+str((size[0]+size[1])//2).zfill(3)+'.sp'
+					generated_files.append(sample_file)
+					sample = SampleKripke(positive=[], negative=[], propositions=propositions)
+					sample.generate_random(sample_file, size[0], size[1], formula, 10000)
+
+					assert consistency_checker(sample, formula)
 
 		return generated_files
 
@@ -101,16 +97,16 @@ class SampleGenerator:
 		
 		for filename in generated_files:
 			
-			s = Sample(positive=[],negative=[])
-			s.readFromFile(filename)
+			s = SampleKripke(positive=[],negative=[],propositions=[])
+			s.read_sample(filename)
 			
 			for (i,j) in sizes:
 				
 				new_filename = filename.replace("nw:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
 				new_positive = s.positive[:i]
 				new_negative = s.negative[:j]
-				new_s = Sample(positive=new_positive, negative=new_negative, propositions=s.propositions)
-				new_s.writeToFile(new_filename)
+				new_s = SampleKripke(positive=new_positive, negative=new_negative, propositions=s.propositions)
+				new_s.write(new_filename)
 
 
 
@@ -127,15 +123,15 @@ def main():
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas.txt')
-	parser.add_argument('--size', '-s', dest='sample_sizes', default=[(10,10),(20,20),()], nargs='+', type=tupleList)
+	parser.add_argument('--size', '-s', dest='sample_sizes', default=[(10,10),(20,20),(30,30)], nargs='+', type=tupleList)
 	parser.add_argument('--total_num', '-n', dest='total_num', default=1, type=int)
 	parser.add_argument('--output_folder', '-o', dest='output_folder', default = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 	#Structure sizes
 
 	args,unknown = parser.parse_known_args()
-	formula_file = 'Scarlet/'+ args.formula_file
+	formula_file = 'test_suite/'+ args.formula_file
 	sample_sizes = list(args.sample_sizes)
-	output_folder = 'Scarlet/' + args.output_folder
+	output_folder = 'test_suite/' + args.output_folder
 	total_num = int(args.total_num)
 	
 

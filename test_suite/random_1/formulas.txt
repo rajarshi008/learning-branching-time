@@ -1,0 +1,6 @@
+EF(p);p,q
+AG(q);p,q
+EU(p,q);p,q
+&(AF(p),EX(q));p,q
+|(EG(p),AF(q));p,q
+&(EU(p,q),AG(q));p,q
