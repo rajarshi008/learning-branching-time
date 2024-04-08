@@ -14,8 +14,8 @@ class LearnFramework:
 		self.size_bound = size_bound
 		self.operators = operators
 		self.solver_name = solver_name
-		self.json_file = sample_file.split('/')[-1].split('.')[0] + '.json'
-
+		self.json_file = sample_file.split('.')[0] + '.json'
+		
 		# Time stats
 		self.enc_time = 0
 		self.solving_time = 0
