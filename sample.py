@@ -23,12 +23,12 @@ class Sample:
 	'''
 	contains the sample of postive and negative examples
 	'''
-	def __init__(self, positive=[], negative=[], propositions=[]):
+	def __init__(self, positive=[], negative=[], propositions=[], formula=None):
 
 		self.positive = positive
 		self.negative = negative
 		self.propositions = propositions
-		self.formula = None
+		self.formula = formula
 
 	def calc_stats(self):
 		self.num_positive = len(self.positive)
@@ -48,8 +48,8 @@ class SampleKripke(Sample):
 	'''
 	Sample of positive and negative Kripke structures
 	'''
-	def __init__(self, positive=[], negative=[], propositions=[]):
-		super().__init__(positive, negative, propositions)
+	def __init__(self, positive=[], negative=[], propositions=[], formula=None):
+		super().__init__(positive, negative, propositions, formula)
 	
 	def read_sample(self, file_path):
 		

@@ -105,7 +105,8 @@ class SampleGenerator:
 				new_filename = filename.replace("nw:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
 				new_positive = s.positive[:i]
 				new_negative = s.negative[:j]
-				new_s = SampleKripke(positive=new_positive, negative=new_negative, propositions=s.propositions)
+
+				new_s = SampleKripke(positive=new_positive, negative=new_negative, propositions=s.propositions, formula=s.formula)
 				new_s.write(new_filename)
 
 

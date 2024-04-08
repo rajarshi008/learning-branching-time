@@ -27,12 +27,15 @@ class LearnFramework:
 		
 		self.sample = SampleKripke(positive=[], negative=[], propositions=[])
 		self.sample.read_sample(self.sample_file)
-		
+		og_formula_text = None
+		if self.sample.formula != None:
+			og_formula_text = self.sample.formula.prettyPrint()
 
-		self.metadata = {'Sample': self.sample_file, 'Sample size': self.sample.num_total,
+		self.metadata = {
+			'Sample': self.sample_file, 'Sample size': self.sample.num_total,
 				   		 'Size Bound': self.size_bound, 'Solver': self.solver_name,
-						'Encoding Time':self.enc_time,'Solving Time': self.solving_time, 'Total Time': self.total_time,
-						'Original Formula': self.sample.formula.prettyPrint(),
+						'Encoding Time':self.enc_time,'Solving Time': self.solving_time, 
+						'Total Time': self.total_time, 'Original Formula': og_formula_text, 
 						'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size
 						}
 		self.dump_json(self.json_file)

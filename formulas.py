@@ -126,6 +126,7 @@ class CTLFormula(SimpleTree):
 
 
 	def prettyPrint(self, top=False):
+		
 		if top is True:
 			lb = ""
 			rb = ""

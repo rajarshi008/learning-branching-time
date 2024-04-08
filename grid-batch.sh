@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH -w spyder[06-13]        # Use spyder
+#SBATCH -w spyder1        # Use spyder
 #SBATCH -c 1                   	# Number of cores
 #SBATCH -t 0-00:20              # Maximum run-time in D-HH:MM
 #SBATCH --mem=10G               # Memory pool for all cores (see also --mem-per-cpu)
@@ -9,7 +9,7 @@
 #SBATCH --array=1-24            # Number of tasks in the array
 
 
-folder="test_suite" # specify the folder on which to run on
+folder="test_suite/random_2/Kripke/" # specify the folder on which to run on
 
 # Get the list of sample files
 sample_files=($(find "$folder" -type f -name "*.sp"))

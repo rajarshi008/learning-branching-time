@@ -17,5 +17,10 @@ def GenerateSample(n):
 	KripkeNeg = GenerateKripke(n+1)
 	return SampleKripke([KripkePos],[KripkeNeg],{'p'})
 
-S = GenerateSample(4)
+if not os.path.exists('test_suite/increasing_sample'):
+	os.makedirs('test_suite/increasing_sample')
+
+for i in range(10,101,10):
+	s = GenerateSample(i)
+	s.write('test_suite/increasing_sample/ex_sample'+str(i)+'.sp')
 
