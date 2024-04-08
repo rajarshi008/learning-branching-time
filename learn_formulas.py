@@ -1,11 +1,10 @@
 import argparse
 import json
 import time
-from sample import SampleKripke
+from sample import SampleKripke, consistency_checker
 from formulas import CTLFormula
 from operators import *
 from ctl_encoding import CTLSATEncoding
-from std_modelcheck import consistency_checker
 
 class LearnFramework:
 
@@ -34,7 +33,7 @@ class LearnFramework:
 
 
 	def learn_ctl(self):
-
+		
 		sample = SampleKripke(positive=[], negative=[], propositions=[])
 		sample.read_sample(self.sample_file)
 		formula = None
@@ -105,6 +104,8 @@ def main():
 	#print(f"Input file: {args.input_file}")
 	#print(f"Formula size: {args.formula_size}")
 	#print(f"CTL operators: {args.operators}")
+
+	print('****** Learning from sample %s of size bound %d ******'%(args.input_file, args.formula_size))
 
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							 operators=args.operators, solver_name=args.solver)
