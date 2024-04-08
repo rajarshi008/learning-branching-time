@@ -1,43 +1,7 @@
-Verification,Original Formula,Size Bound,Total Time,Encoding Time,Learned Formula,Solving Time,Sample,Learned Formula Size,Solver
-True,,6,4.924209356307983,4.911665678024292,(EF p),0.012543678283691406,test_suite/random_1/Kripke/f:01-nw:020.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:01-nw:010.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:03-nw:100.sp,,z3
-True,,6,84.39348578453064,84.1579794883728,(E(p U q)),0.23550629615783691,test_suite/random_1/Kripke/f:03-nw:030.sp,3,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:06-nw:010.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:04-nw:100.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:02-nw:025.sp,,z3
-True,,6,13.299792289733887,13.261689186096191,(EF p),0.03810310363769531,test_suite/random_1/Kripke/f:01-nw:030.sp,2,z3
-True,,6,34.23736619949341,34.129602670669556,(E(p U q)),0.10776352882385254,test_suite/random_1/Kripke/f:03-nw:020.sp,3,z3
-True,,6,45.836692333221436,39.56681251525879,(E((EG p) U (AF q))),6.2698798179626465,test_suite/random_1/Kripke/f:05-nw:010.sp,5,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:05-nw:025.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:04-nw:010.sp,,z3
-True,((E(p U q)) & (AG q)),6,207.34802913665771,207.1604404449463,(AG q),0.18758869171142578,test_suite/random_1/Kripke/f:06-nw:100.sp,2,z3
-True,,6,8.589039325714111,8.535815000534058,(E(p U q)),0.05322432518005371,test_suite/random_1/Kripke/f:03-nw:010.sp,3,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:03-nw:010.sp,,z3
-True,,6,153.0220091342926,137.05007481575012,(E((EG p) U (AF q))),15.97193431854248,test_suite/random_1/Kripke/f:05-nw:020.sp,5,z3
-True,(EF p),6,323.8431739807129,323.4824137687683,(EF p),0.3607602119445801,test_suite/random_1/Kripke/f:01-nw:100.sp,2,z3
-True,,6,1.037067174911499,1.0318183898925781,(EF p),0.0052487850189208984,test_suite/random_1/Kripke/f:01-nw:010.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:02-nw:050.sp,,z3
-True,,6,394.1463871002197,347.2155487537384,((AF q) | (EG p)),46.93083834648132,test_suite/random_1/Kripke/f:05-nw:030.sp,5,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:05-nw:050.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:06-nw:025.sp,,z3
-True,,6,14.07854676246643,14.057015419006348,(AG q),0.021531343460083008,test_suite/random_1/Kripke/f:06-nw:030.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:03-nw:050.sp,,z3
-True,,6,163.88492250442505,157.7858865261078,((AF p) & (EX q)),6.099035978317261,test_suite/random_1/Kripke/f:04-nw:020.sp,5,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:01-nw:025.sp,,z3
-True,,6,0.9551348686218262,0.9508888721466064,(AG q),0.0042459964752197266,test_suite/random_1/Kripke/f:02-nw:010.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:04-nw:050.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:05-nw:010.sp,,z3
-True,,6,5.295831918716431,5.284174919128418,(AG q),0.011656999588012695,test_suite/random_1/Kripke/f:06-nw:020.sp,2,z3
-True,,6,456.3829698562622,433.8762409687042,((AF p) & (EX q)),22.506728887557983,test_suite/random_1/Kripke/f:04-nw:030.sp,5,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:02-nw:010.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:03-nw:025.sp,,z3
-True,,6,1.5460069179534912,1.5387523174285889,(AG q),0.007254600524902344,test_suite/random_1/Kripke/f:06-nw:010.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:06-nw:050.sp,,z3
-True,,6,10.701608896255493,10.677843809127808,(AG q),0.023765087127685547,test_suite/random_1/Kripke/f:02-nw:030.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:04-nw:025.sp,,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:01-nw:050.sp,,z3
-True,(AG q),6,205.34831285476685,205.10932540893555,(AG q),0.23898744583129883,test_suite/random_1/Kripke/f:02-nw:100.sp,2,z3
-True,,6,40.55865788459778,38.50779056549072,((AF p) & (EX q)),2.0508673191070557,test_suite/random_1/Kripke/f:04-nw:010.sp,5,z3
-True,,6,4.392500638961792,4.379005193710327,(AG q),0.013495445251464844,test_suite/random_1/Kripke/f:02-nw:020.sp,2,z3
-,,6,0,0,,0,test_suite/random_1/Kripke/f:05-nw:100.sp,,z3
+Size Bound,Sample size,Learned Formula,Encoding Time,Solving Time,Solver,Learned Formula Size,Original Formula,Total Time,Verification,Sample
+6,200,,0,0,z3,,((EG p) | (AF q)),0,,test_suite/random_2/Kripke/f:05-nw:100.sp
+6,200,(AG q),205.38,0.27,z3,2,(AG q),205.65,True,test_suite/random_2/Kripke/f:02-nw:100.sp
+6,200,,0,0,z3,,((AF p) & (EX q)),0,,test_suite/random_2/Kripke/f:04-nw:100.sp
+6,200,,0,0,z3,,(E(p U q)),0,,test_suite/random_2/Kripke/f:03-nw:100.sp
+6,200,(EF p),335.92,0.29,z3,2,(EF p),336.21,True,test_suite/random_2/Kripke/f:01-nw:100.sp
+6,200,(AG q),243.72,0.39,z3,2,((E(p U q)) & (AG q)),244.11,True,test_suite/random_2/Kripke/f:06-nw:100.sp
