@@ -1,0 +1,11 @@
+Learned Formula,Sample,Original Formula,Size Bound,Solver,Learned Formula Size,Total Time,Solving Time,Encoding Time,Sample size
+,test_suite/increasing_sample/ex_sample10.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample60.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample90.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample100.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample80.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample70.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample40.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample30.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample50.sp,,8,z3,,0,0,0,2
+,test_suite/increasing_sample/ex_sample20.sp,,8,z3,,0,0,0,2
