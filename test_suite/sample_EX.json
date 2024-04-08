@@ -1,0 +1,11 @@
+{
+    "Sample": "test_suite/sample_EX.sp",
+    "Size Bound": 5,
+    "Solver": "z3",
+    "Encoding Time": 0.12258148193359375,
+    "Solving Time": 0.0020127296447753906,
+    "Total Time": 0.12459421157836914,
+    "Learned Formula": "(EX p)",
+    "Learned Formula Size": 2,
+    "Verification": true
+}

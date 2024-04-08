@@ -1,0 +1,11 @@
+{
+    "Sample": "test_suite/sample_EG.sp",
+    "Size Bound": 5,
+    "Solver": "z3",
+    "Encoding Time": 0.1268305778503418,
+    "Solving Time": 0.0012180805206298828,
+    "Total Time": 0.12804865837097168,
+    "Learned Formula": "(EG p)",
+    "Learned Formula Size": 2,
+    "Verification": true
+}
