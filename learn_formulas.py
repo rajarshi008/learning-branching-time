@@ -110,7 +110,7 @@ def main():
 	parser.add_argument('-z', '--solver', default='z3', choices=['z3', 'msat'], help='Choice of solver; note you must have the chosen solver installed')
 
 	args = parser.parse_args()
-
+	
 	#print(f"Input file: {args.input_file}")
 	#print(f"Formula size: {args.formula_size}")
 	#print(f"CTL operators: {args.operators}")
