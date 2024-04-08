@@ -1,11 +1,21 @@
-Learned Formula,Sample,Original Formula,Size Bound,Solver,Learned Formula Size,Total Time,Solving Time,Encoding Time,Sample size
-,test_suite/increasing_sample/ex_sample10.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample60.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample90.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample100.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample80.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample70.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample40.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample30.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample50.sp,,8,z3,,0,0,0,2
-,test_suite/increasing_sample/ex_sample20.sp,,8,z3,,0,0,0,2
+Encoding Time,Original Formula,Verification,Solver,Solving Time,Size Bound,Learned Formula Size,Sample size,Total Time,Sample,Learned Formula
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample14.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample10.sp,
+2.77,,True,z3,635.24,20,8,2,638.02,test_suite/increasing_sample/ex_sample7.sp,(EX (EX (EX (EX (EX (EX (EX p)))))))
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample60.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample90.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample100.sp,
+1.54,,True,z3,105.39,20,7,2,106.93,test_suite/increasing_sample/ex_sample6.sp,(EX (EX (EX (EX (EX (EX p))))))
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample80.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample70.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample15.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample11.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample8.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample40.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample30.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample13.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample50.sp,
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample12.sp,
+0,,,z3,0,8,,2,0,test_suite/increasing_sample/ex_sample20.sp,
+0.84,,True,z3,4.88,20,6,2,5.71,test_suite/increasing_sample/ex_sample5.sp,(EX (EX (EX (EX (EX p)))))
+0,,,z3,0,20,,2,0,test_suite/increasing_sample/ex_sample9.sp,
