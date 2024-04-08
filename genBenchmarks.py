@@ -123,7 +123,7 @@ def main():
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas.txt')
-	parser.add_argument('--size', '-s', dest='sample_sizes', default=[(10,10),(20,20),(30,30)], nargs='+', type=tupleList)
+	parser.add_argument('--size', '-s', dest='sample_sizes', default=[(10,10),(25,25),(50,50),(100,100)], nargs='+', type=tupleList)
 	parser.add_argument('--total_num', '-n', dest='total_num', default=1, type=int)
 	parser.add_argument('--output_folder', '-o', dest='output_folder', default = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 	#Structure sizes

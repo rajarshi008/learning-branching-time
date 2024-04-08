@@ -28,6 +28,7 @@ class Sample:
 		self.positive = positive
 		self.negative = negative
 		self.propositions = propositions
+		self.formula = None
 
 	def calc_stats(self):
 		self.num_positive = len(self.positive)
@@ -54,8 +55,15 @@ class SampleKripke(Sample):
 		
 		with open(file_path, 'r') as file:
 			lines = file.read()
-			positive_str, negative_str = lines.split('---\n---\n---\n')	
+			info = lines.split('---\n---\n---\n')	
 			
+			if len(info) == 2:
+				positive_str, negative_str = info
+				self.formula = None
+			elif len(info) == 3:
+				positive_str, negative_str, formula_str = info
+				self.formula = CTLFormula.convertTextToFormula(formula_str)
+
 			# Read positive examples
 			kripke_strs = positive_str.split('---\n---\n')
 			for kripke_str in kripke_strs:
@@ -109,6 +117,7 @@ class SampleKripke(Sample):
 				break
 
 		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(num_positive, num_negative, trials))		
+		self.formula = formula
 		self.calc_stats()
 		self.write(file_path)
 
@@ -119,6 +128,9 @@ class SampleKripke(Sample):
 			file.write('---\n---\n'.join([kripke.to_string() for kripke in self.positive]))
 			file.write('---\n---\n---\n')
 			file.write('---\n---\n'.join([kripke.to_string() for kripke in self.negative]))
+			if self.formula != None:
+				file.write('---\n---\n---\n')
+				file.write(str(self.formula))
 
 #s = SampleKripke()
 #s.read_sample('tests/inputs/example_sample.sp')
@@ -126,10 +138,11 @@ class SampleKripke(Sample):
 #example.show()
 #print(example)
 
-#formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))']
+formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))']
 
-#for formula_name in formula_list:
-#	formula = CTLFormula.convertTextToFormula(formula_name)
-#	sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
-#	sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
+
+formula = CTLFormula.convertTextToFormula(formula_list[1])
+print(formula)
+sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
+sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
 

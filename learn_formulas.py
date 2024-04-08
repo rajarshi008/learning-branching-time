@@ -14,8 +14,8 @@ class LearnFramework:
 		self.size_bound = size_bound
 		self.operators = operators
 		self.solver_name = solver_name
-		self.json_file = sample_file.split('.')[0] + '.json'
-		
+		self.json_file = sample_file.split('.')[0] +'-'+solver_name+'.json'
+
 		# Time stats
 		self.enc_time = 0
 		self.solving_time = 0
@@ -78,8 +78,8 @@ class LearnFramework:
 			print('No formula found within %d size bound'%size)
 
 		self.metadata.update({'Encoding Time':self.enc_time, 'Solving Time': self.solving_time,
-							  'Total Time': self.enc_time + self.solving_time, 'Learned Formula': formula.prettyPrint(),
-							  'Learned Formula Size': size, 'Verification': ver})
+							  'Total Time': self.enc_time + self.solving_time, 'Original Formula': sample.formula.prettyPrint(),
+								'Learned Formula': formula.prettyPrint(), 'Learned Formula Size': size, 'Verification': ver})
 
 		self.dump_json(self.json_file)
 
@@ -94,7 +94,7 @@ class LearnFramework:
 
 def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
-	parser.add_argument('-f', '--input_file', default='tests/inputs/small_example_sample.sp', help='The input sample file')
+	parser.add_argument('-f', '--input_file', default='random_sample.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=3, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=ctl_operators, help='Choice of CTL operators')
 	parser.add_argument('-z', '--solver', default='z3', choices=['z3', 'msat'], help='Choice of solver; note you must have the chosen solver installed')
