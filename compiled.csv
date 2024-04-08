@@ -1,0 +1,5 @@
+Total Time,Learned Formula Size,Size Bound,Encoding Time,Learned Formula,Solver,Verification,Solving Time,Sample
+0.12459421157836914,2,5,0.12258148193359375,(EX p),z3,True,0.0020127296447753906,test_suite/sample_EX.sp
+0.4614105224609375,3,5,0.44832611083984375,(E(p U q)),z3,True,0.01308441162109375,test_suite/sample_EU.sp
+0.12804865837097168,2,5,0.1268305778503418,(EG p),z3,True,0.0012180805206298828,test_suite/sample_EG.sp
+0.1270904541015625,2,5,0.12496829032897949,(EF p),z3,True,0.002122163772583008,test_suite/sample_EF.sp
