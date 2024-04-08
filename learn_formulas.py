@@ -25,8 +25,14 @@ class LearnFramework:
 		self.learned_formula = None
 		self.learned_formula_size = None
 		
-		self.metadata = {'Sample': self.sample_file, 'Size Bound': self.size_bound, 'Solver': self.solver_name,
+		self.sample = SampleKripke(positive=[], negative=[], propositions=[])
+		self.sample.read_sample(self.sample_file)
+		
+
+		self.metadata = {'Sample': self.sample_file, 'Sample size': self.sample.num_total,
+				   		 'Size Bound': self.size_bound, 'Solver': self.solver_name,
 						'Encoding Time':self.enc_time,'Solving Time': self.solving_time, 'Total Time': self.total_time,
+						'Original Formula': self.sample.formula.prettyPrint(),
 						'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size
 						}
 		self.dump_json(self.json_file)
@@ -34,17 +40,15 @@ class LearnFramework:
 
 	def learn_ctl(self):
 		
-		sample = SampleKripke(positive=[], negative=[], propositions=[])
-		sample.read_sample(self.sample_file)
 		formula = None
 
-		enc_time_incr = time.time() 
-		enc = CTLSATEncoding(sample, sample.propositions, self.operators, self.solver_name)
+		enc_time_incr = time.time()
+		enc = CTLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name)
 		enc_time_incr = time.time() - enc_time_incr
 		self.enc_time += enc_time_incr
 
 		for size in range(1,self.size_bound+1):
-
+			print('--- Preparing encoding for size %d ---'%size)
 			# Propositional Encoding
 			enc_time_incr = time.time() 
 			enc.encodeFormula(size)
@@ -57,6 +61,8 @@ class LearnFramework:
 			solving_time_incr = time.time() - solving_time_incr
 			self.solving_time += solving_time_incr
 			
+			print('Size %d took %.2f seconds'%(size, enc_time_incr+solving_time_incr))
+
 			if solverRes == True:
 				#print('sat')
 				solverModel = enc.solver.get_model()
@@ -67,19 +73,20 @@ class LearnFramework:
 				print("Found formula {}".format(formula.prettyPrint()))
 				break
 			
+			
 		
 		# Formula verification
 		if formula != None:
-			ver = consistency_checker(sample, formula)
+			ver = consistency_checker(self.sample, formula)
 			print('Verification',ver)
 			if not ver:
 				raise Exception('Incorrect Formula found')
 		else:		
 			print('No formula found within %d size bound'%size)
 
-		self.metadata.update({'Encoding Time':self.enc_time, 'Solving Time': self.solving_time,
-							  'Total Time': self.enc_time + self.solving_time, 'Original Formula': sample.formula.prettyPrint(),
-								'Learned Formula': formula.prettyPrint(), 'Learned Formula Size': size, 'Verification': ver})
+		self.metadata.update({'Encoding Time':round(self.enc_time,2), 'Solving Time': round(self.solving_time,2),
+							'Total Time': round(self.enc_time + self.solving_time,2), 'Learned Formula': formula.prettyPrint(),
+							'Learned Formula Size': size, 'Verification': ver})
 
 		self.dump_json(self.json_file)
 

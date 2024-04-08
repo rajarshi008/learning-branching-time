@@ -7,7 +7,7 @@ class CTLSATEncoding:
 	
 	def __init__(self, sample, propositions, operators, solver_name):
 		
-		print('Using %s solver'%solver_name)
+		
 		self.solver = Solver(name=solver_name)
 		self.sample = sample
 		self.propositions = propositions
@@ -17,8 +17,6 @@ class CTLSATEncoding:
 		self.binary_operators = [op for op in self.operators if op in ctl_binary]
 
 		self.operators_and_propositions = self.operators + self.propositions
-
-		print(self.operators)
 
 		# initializing the variables
 		self.x = {}
@@ -36,7 +34,7 @@ class CTLSATEncoding:
 	"""
 	def encodeFormula(self, formula_size):
 		
-		print('Preparing encoding for size %d'%formula_size)
+		#print('Preparing encoding for size %d'%formula_size)
 
 		self.x.update({ (formula_size - 1, o) : Symbol('x_%d_%s'%(formula_size-1,o)) for o in self.operators_and_propositions})
 

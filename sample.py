@@ -138,11 +138,11 @@ class SampleKripke(Sample):
 #example.show()
 #print(example)
 
-formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))']
+#formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))']
 
 
-formula = CTLFormula.convertTextToFormula(formula_list[1])
-print(formula)
-sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
-sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
+#formula = CTLFormula.convertTextToFormula(formula_list[1])
+#print(formula)
+#sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
+#sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
 
