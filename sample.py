@@ -4,15 +4,15 @@ from formulas import *
 from std_modelcheck import ModelChecker
 
 
-def consistency_checker(sample, formula):
+def consistency_checker(sample, formula, model_type='kripke', formula_type='ctl'):
 	for structure in sample.positive:
-		checker = ModelChecker(model=structure, formula=formula)
+		checker = ModelChecker(model=structure, formula=formula, model_type=model_type, formula_type=formula_type)
 		if not checker.check():
 			print('Positive example')
 			print(structure)
 			return False
 	for structure in sample.negative:
-		checker = ModelChecker(model=structure, formula=formula)
+		checker = ModelChecker(model=structure, formula=formula, model_type=model_type, formula_type=formula_type)
 		if checker.check():
 			print('Negative example')
 			print(structure)
@@ -132,6 +132,62 @@ class SampleKripke(Sample):
 				file.write('---\n---\n---\n')
 				file.write(str(self.formula))
 
+
+
+class SampleCGS(Sample):
+	'''
+	Sample of positive and negative Concurrent Game Structures
+	'''
+	def __init__(self, positive=[], negative=[], propositions=[], formula=None):
+		super().__init__(positive, negative, propositions, formula)
+
+	def calc_stats(self):
+		self.num_positive = len(self.positive)
+		self.num_negative = len(self.negative)
+		self.num_total = self.num_positive + self.num_negative
+		all_props = []
+		for structure in self.positive+self.negative:
+			all_props += structure.propositions
+		self.propositions = list(set(all_props))
+		self.num_props = len(self.propositions)
+		self.num_players = len(self.positive[0].players)
+
+	def read_sample(self, file_path):
+		
+		with open(file_path, 'r') as file:
+			lines = file.read()
+			info = lines.split('---\n---\n---\n')	
+			self.players = None
+
+			if len(info) == 2:
+				positive_str, negative_str = info
+				self.formula = None
+			elif len(info) == 3:
+				positive_str, negative_str, formula_str = info
+				self.formula = ATLFormula.convertTextToFormula(formula_str)
+
+			# Read positive examples
+			cgs_strs = positive_str.split('---\n---\n')
+			for cgs_str in cgs_strs:
+				c = ConcurrentGameStructure(init_states=[], transitions={}, labels={}, propositions=[], players=[])
+				c.read_structure(cgs_str)
+				self.positive.append(c)
+				if self.players == None:
+					self.players = c.players
+				else:
+					if self.players != c.players:
+						raise('Mismatch of players in different CGS')
+			# Read negative examples
+			cgs_strs = negative_str.split('---\n---\n')
+			for cgs_str in cgs_strs:
+				c = ConcurrentGameStructure(init_states=[], transitions={}, labels={}, propositions=[], players=[])
+				c.read_structure(cgs_str)
+				self.negative.append(c)
+			
+			self.calc_stats()
+
+	
+
 #s = SampleKripke()
 #s.read_sample('tests/inputs/example_sample.sp')
 #example = s.positive[1]
@@ -146,3 +202,9 @@ class SampleKripke(Sample):
 #sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
 #sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
 
+
+formula = ATLFormula.convertTextToFormula('!(<1>F(g))')
+sample = SampleCGS()
+sample_path = 'sample_cgs.sp'
+sample.read_sample(sample_path)
+print(consistency_checker(sample, formula, model_type='cgs', formula_type='atl'))

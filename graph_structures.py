@@ -196,27 +196,159 @@ class Kripke:
 		s.view()
 
 
-class Concurrent_Game_Structure:
-	class Concurrent_Game_Structure:
-		def __init__(self, players, states, transitions, labels):
-			self.players = players
-			self.states = states
-			self.transitions = transitions
-			self.labels = labels
-		
-		def __str__(self):
-			'''Prints the concurrent game structure in a human readable way'''
-			string = "Concurrent game structure:\n"
-			string += "Players: " + str(self.players) + "\n"
-			string += "States: " + str(self.states) + "\n"
-			string += "Transitions:\n"
-			for state in self.states:
-				string += str(state) + " -> " + str(self.transitions[state]) + "\n"
-			string += "Labels:\n"
-			for state in self.states:
-				string += str(state) + " -> " + str(self.labels[state]) + "\n"
-			return string
+class ConcurrentGameStructure:
 	
+	def __init__(self, init_states=set(), transitions={}, labels={}, players=set(), propositions=set()):
+		self.players = players # ordered list
+		self.transitions = transitions
+		self.labels = labels
+		self.states = set(self.labels.keys())
+		self.propositions = propositions
+		self.player2pos = {player: i for i, player in enumerate(self.players)}
+
+	def calc_stats(self):
+		
+		self.propositions = set(label for state in self.states for label in self.labels[state])
+		self.player2pos = {player: i for i, player in enumerate(self.players)}
+		
+		if epsilon in self.propositions:
+			self.propositions.remove(epsilon)
+		self.size = len(self.states)
+
+	def __str__(self):
+		'''Prints the concurrent game structure in a human readable way'''
+		string = "Concurrent game structure:\n"
+		string += "Players: " + str(self.players) + "\n"
+		string += "States: " + str(self.states) + "\n"
+		string += "Transitions:\n"
+		for state in self.states:
+			for action in self.transitions[state]:
+				string += str(state) + " -" + str(action) + '-> ' + str(self.transitions[state][action]) + "\n"
+		string += "Labels:\n"
+		for state in self.states:
+			string += str(state) + " -> " + str(self.labels[state]) + "\n"
+		return string
+	
+
+	def read_structure(self, cgs_str):
+		'''Reads a CGS from a text file with following format:
+
+			Init States
+			---
+			Labels
+			---
+			Transitions
+			---
+			Players
+		'''
+		init_states_str, labels_str, transitions_str, players_str = cgs_str.split('---\n')
+		
+		#Initial States
+		self.init_states = set(int(state) for state in init_states_str.strip().split(','))
+		
+		#Labels
+		labels_dict_str = labels_str.strip().split('\n')
+		for label_str in labels_dict_str:
+			state, prop_str = label_str.strip().split(':')
+			if prop_str == '':
+				self.labels[int(state)] = set()
+			else:
+				self.labels[int(state)] = set(prop_str.split(','))
+		self.states = set(self.labels.keys())
+
+		#Transitions
+		transitions_dict_str = transitions_str.strip().split('\n')
+		self.transitions = {state: dict() for state in self.states}
+		for transition_str in transitions_dict_str:
+			split_list = transition_str.strip().split(':')
+			state1, state2 = split_list[0].split(',')
+			action_list = [ tuple(map(int,action_str.split(','))) for action_str in split_list[1].split(';')]
+			for action in action_list:
+				self.transitions[int(state1)][action] = int(state2)
+		#Players
+		self.players = list(map(int,players_str.strip().split(',')))
+
+		self.calc_stats()
+
+	def to_string(self):
+		'''Prints the CGS in a machine readable way'''
+		
+		string = ''
+		string += ','.join([str(state) for state in self.init_states]) + '\n'
+		string += '---\n'
+		for state in self.states:
+			string += str(state) + ':' + ','.join(self.labels[state]) + '\n'
+		string += '---\n'
+		for state in self.states:
+			succ_states = self.transitions[state].values()
+			for succ_state in succ_states:
+				action_list = []
+				for action in self.transitions[state]:
+					if self.transitions[state][action] == succ_state:		
+						action_list.append(','.join(map(str,action)))
+				string += str(state) + ',' + str(succ_state) + ':' + ';'.join(action_list) + '\n'
+			
+		string += '---\n'
+		string += ','.join(map(str,self.players)) + '\n'
+		
+		return string
+
+
+	def to_dot(self, filename='dummy.str'):
+		'''Creates a .dot file of the Kripke structure'''
+		dot_str =  "digraph g {\n"
+		dot_str += "-1 [label=\"\", style=invis]\n"
+		for state in self.states:
+			dot_str += ('{} [label="{}:{}"]\n'.format(state, str(state), self.labels[state]))
+
+		for init_state in self.init_states:
+			dot_str += ('{} -> {}\n'.format("-1", init_state))
+		for state in self.states:
+			succ_states = self.transitions[state].values()
+			for succ_state in succ_states:
+				action_list = []
+				for action in self.transitions[state]:
+					if self.transitions[state][action] == succ_state:		
+						action_list.append('(' + ','.join(map(str,action)) + ')')
+				dot_str += ('{} -> {} [label="{}"]\n'.format(state, succ_state, ' '.join(action_list)))
+		dot_str += ("}\n")	
+		
+		return dot_str
+
+	def show(self, filename='dummy.png'):
+		'''Shows the Kripke structure in a window'''
+		s = Source(self.to_dot(), filename=filename, format="png")
+		s.view()
+
+	def predecessors(self, target_states, players):
+		'''Returns the predecessors of a state wrt to give players'''
+		
+		playing_pos = [self.player2pos[player] for player in players]
+		pred_set = set()
+		for state in self.states:
+			action_partition = {}
+			
+			for action in self.transitions[state]:
+				partial_action = tuple(action[pos] for pos in playing_pos)
+				if partial_action not in action_partition:
+					action_partition[partial_action] = [action]
+				else:
+					action_partition[partial_action].append(action)
+			for partial_action in action_partition:
+				possible = True
+				for action in action_partition[partial_action]:
+					if self.transitions[state][action] not in target_states:
+						possible = False
+						break
+				if possible:
+					pred_set.add(state)
+					break
+
+		return pred_set
+				
+
+
+
 #k = Kripke()
 #k.read_structure_file('example_kripke.str')
 #k.show()
@@ -224,3 +356,9 @@ class Concurrent_Game_Structure:
 #k.show()
 #print(k.write_format())
 
+
+#c = ConcurrentGameStructure()
+#with open('example.cgs', 'r') as file:
+#	string = file.read()
+#	c.read_structure(string)
+#print(c.predecessors({0,1}, [0]))

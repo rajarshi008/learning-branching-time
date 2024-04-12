@@ -13,8 +13,8 @@ class CTLSATEncoding:
 		self.propositions = propositions
 		self.operators = operators
 
-		self.unary_operators = [op for op in self.operators if op in ctl_unary]
-		self.binary_operators = [op for op in self.operators if op in ctl_binary]
+		self.unary_operators = ctl_unary
+		self.binary_operators = ctl_binary
 
 		self.operators_and_propositions = self.operators + self.propositions
 
@@ -178,7 +178,6 @@ class CTLSATEncoding:
 			
 			if '&' in self.operators:
 				#conjunction
-				#print(i,signal_id)
 				self.solver.add_assertion(Implies(self.x[(i, '&')],\
 														And([ Implies(\
 																	   And(\
@@ -192,8 +191,7 @@ class CTLSATEncoding:
 																	  for left_arg in range(i) for right_arg in range(i) ])))
 				
 			if '->' in self.operators:
-				#conjunction
-				#print(i,signal_id)
+				#implication
 				self.solver.add_assertion(Implies(self.x[(i, '->')],\
 														And([ Implies(\
 																	   And(\
@@ -328,7 +326,7 @@ class CTLSATEncoding:
 	
 	
 	def auxConstraintsEG(self, i, j):
-
+		
 		aux_formula = Bool(True)
 		for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
 			for state in kripke.states:

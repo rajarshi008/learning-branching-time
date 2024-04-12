@@ -1,0 +1,25 @@
+Sample,Sample size,Size Bound,Original Formula,Learned Formula,Learned Formula Size,Total Time,Encoding Time,Solving Time,Solver,Verification
+test_suite/random_3/Kripke/f:05-nw:010.sp,20,8,((EG p) | (AF q)),((AF q) | (EG p)),5,44.63,38.58,6.05,z3,TRUE
+test_suite/random_3/Kripke/f:02-nw:010.sp,20,8,(AG q),(AX q),2,1.24,1.23,0.01,z3,TRUE
+test_suite/random_3/Kripke/f:01-nw:010.sp,20,8,(EF p),(EF p),2,1.38,1.37,0.01,z3,TRUE
+test_suite/random_3/Kripke/f:06-nw:010.sp,20,8,((E(p U q)) & (AG q)),(EG q),2,0.96,0.96,0,z3,TRUE
+test_suite/random_3/Kripke/f:04-nw:010.sp,20,8,((AF p) & (EX q)),(E((EX q) U (AX q))),4,21.9,20.41,1.49,z3,TRUE
+test_suite/random_3/Kripke/f:03-nw:010.sp,20,8,(E(p U q)),(E(p U q)),3,7.83,7.79,0.03,z3,TRUE
+test_suite/random_3/Kripke/f:06-nw:025.sp,50,8,((E(p U q)) & (AG q)),(AG q),2,7.64,7.61,0.03,z3,TRUE
+test_suite/random_3/Kripke/f:01-nw:025.sp,50,8,(EF p),(EF p),2,10.16,10.13,0.04,z3,TRUE
+test_suite/random_3/Kripke/f:03-nw:025.sp,50,8,(E(p U q)),(E(p U q)),3,55.14,54.8,0.35,z3,TRUE
+test_suite/random_3/Kripke/f:04-nw:025.sp,50,8,((AF p) & (EX q)),((AF p) & (EX q)),5,304.41,267.55,36.86,z3,TRUE
+test_suite/random_3/Kripke/f:02-nw:025.sp,50,8,(AG q),(AG q),2,7.91,7.89,0.02,z3,TRUE
+test_suite/random_3/Kripke/f:05-nw:025.sp,50,8,((EG p) | (AF q)),((AF q) | (EG p)),5,400.45,349.39,51.06,z3,TRUE
+test_suite/random_3/Kripke/f:03-nw:050.sp,100,8,(E(p U q)),(E(p U q)),3,349.44,347.58,1.85,z3,TRUE
+test_suite/random_3/Kripke/f:04-nw:050.sp,100,8,((AF p) & (EX q)),((AF p) & (EX q)),5,1506.82,1461.6,45.22,z3,TRUE
+test_suite/random_3/Kripke/f:06-nw:050.sp,100,8,((E(p U q)) & (AG q)),(AG q),2,40.28,40.2,0.08,z3,TRUE
+test_suite/random_3/Kripke/f:01-nw:050.sp,100,8,(EF p),(EF p),2,55.58,55.49,0.09,z3,TRUE
+test_suite/random_3/Kripke/f:02-nw:050.sp,100,8,(AG q),(AG q),2,38.92,38.84,0.08,z3,TRUE
+test_suite/random_3/Kripke/f:05-nw:050.sp,100,8,((EG p) | (AF q)),,,1800,,,z3,
+test_suite/random_3/Kripke/f:02-nw:100.sp,200,8,(AG q),(AG q),2,245.45,245.22,0.23,z3,TRUE
+test_suite/random_3/Kripke/f:05-nw:100.sp,200,8,((EG p) | (AF q)),,,1800,,,z3,
+test_suite/random_3/Kripke/f:03-nw:100.sp,200,8,(E(p U q)),,,1800,,,z3,
+test_suite/random_3/Kripke/f:04-nw:100.sp,200,8,((AF p) & (EX q)),,,1800,,,z3,
+test_suite/random_3/Kripke/f:06-nw:100.sp,200,8,((E(p U q)) & (AG q)),(AG q),2,192.58,192.33,0.25,z3,TRUE
+test_suite/random_3/Kripke/f:01-nw:100.sp,200,8,(EF p),(EF p),2,341.96,341.64,0.32,z3,TRUE

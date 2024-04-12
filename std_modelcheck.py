@@ -1,5 +1,5 @@
-from formulas import CTLFormula
-from graph_structures import Kripke
+from formulas import CTLFormula, ATLFormula
+from graph_structures import Kripke, ConcurrentGameStructure
 from operators import *
 
 
@@ -14,10 +14,10 @@ class ModelChecker():
 		if self.model_type == 'kripke' and  self.formula_type == 'ctl':
 				return self.checkCTLKripke()
 		if self.model_type == 'cgs' and self.formula_type == 'atl':
-			return self.check_cgs_atl() 
+			return self.checkATLCGS() 
 	
 	def checkCTLKripke(self):
-		
+		print('instead this')
 		self.SatSetCTL = {}
 		sat_sets_kripke = self.computeSatSet(self.formula)
 		
@@ -149,18 +149,119 @@ class ModelChecker():
 				self.SatSetCTL[formula] = lfp
 				return self.SatSetCTL[formula]
 
+	def checkATLCGS(self):
+		
+		self.SatSetATL = {}
+		sat_sets_cgs = self.computeSatSetATL(self.formula)
+
+		if self.model.init_states & sat_sets_cgs:
+			return True
+		else:
+			return False
+		
+	def computeSatSetATL(self, formula):
+
+		if formula in self.SatSetATL:
+			return self.SatSetATL[formula]
+		else:
+			
+			# computing the sets for subformulas
+			if formula.label in atl_unary or formula.label[-1] in atl_unary:
+				left_set = self.computeSatSetATL(formula.left)
+			elif formula.label in atl_binary or formula.label[-1] in atl_binary:
+				left_set = self.computeSatSetATL(formula.left)
+				right_set = self.computeSatSetATL(formula.right)
+			else:
+				# atomic proposition
+				self.SatSetATL[formula] = {state for state in self.model.states if formula.label in self.model.labels[state]}
+				return self.SatSetATL[formula]
+
+			# case analysis for different operators
+			if formula.label == '&':
+				
+				self.SatSetATL[formula] = left_set & right_set
+				return self.SatSetATL[formula]
+			
+			elif formula.label == '|':
+				
+				self.SatSetATL[formula] = left_set | right_set
+				return self.SatSetATL[formula]
+			
+			elif formula.label == '->':
+				
+				self.SatSetATL[formula] = self.stateComplement(left_set) | right_set
+				return self.SatSetATL[formula]
+			
+			elif formula.label == '!':
+				
+				self.SatSetATL[formula] = self.stateComplement(left_set)
+				return self.SatSetATL[formula]
+
+			elif formula.label[-1] == 'X':
+
+				self.SatSetATL[formula] = self.model.predecessors(left_set, formula.players)
+				return self.SatSetATL[formula]
+
+			elif formula.label[-1] == 'F':
+
+				lfp = left_set
+				while True:
+					pre_lfp = self.model.predecessors(lfp, formula.players)
+					new_lfp = pre_lfp - lfp
+					if new_lfp == set():
+						break
+					else:
+						lfp = lfp | pre_lfp
+				self.SatSetATL[formula] = lfp
+				return self.SatSetATL[formula]
+			
+			elif formula.label[-1] == 'G':
+
+				gfp = left_set
+				while True:
+					post_gfp = left_set & self.model.predecessors(gfp, formula.players)
+					new_gfp = gfp - post_gfp
+					if new_gfp == set():
+						break
+					else:
+						gfp = post_gfp
+				self.SatSetATL[formula] = gfp
+				return self.SatSetATL[formula]
+
+			elif formula.label[-1] == 'U':
+				
+				lfp = right_set
+				print(left_set,right_set)
+				while True:
+					pre_lfp = left_set & self.model.predecessors(lfp, formula.players)
+					new_lfp = pre_lfp - lfp
+					if new_lfp == set():
+						break
+					else:
+						lfp = lfp | pre_lfp
+				self.SatSetATL[formula] = lfp
+				return self.SatSetATL[formula]
+
 	# some aux functions
 	def stateComplement(self, state_set):
 		return set(self.model.states) - state_set
-
-		
-	def check_cgs_atl(self):
-		# perform ATL model checking
-		if self.formula == None:
-			return None	 
 	
+
 #formula = CTLFormula.convertTextToFormula('EU(p,q)')
 #sample = SampleKripke()
 #sample_path = 'tests/inputs/small_example_sample.sp'
 #sample.read_sample(sample_path)
 #print(consistency_checker(sample, formula))
+
+# model = ConcurrentGameStructure()
+# model_path = 'tests/inputs/example_cgs.cgs'
+# with open(model_path, 'r') as file:
+# 	string = file.read()
+# 	model.read_structure(string)
+# formula = ATLFormula.convertTextToFormula('<01>U(o,r)')
+# print(formula.prettyPrint())
+# model.show()
+# checker = ModelChecker(model, formula, model_type='cgs', formula_type='atl')
+# print(checker.check())
+
+

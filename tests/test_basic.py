@@ -1,13 +1,13 @@
 import os
 from formulas import CTLFormula
-from graph_structures import Kripke
+from graph_structures import Kripke, ConcurrentGameStructure
 from sample import SampleKripke
 from std_modelcheck import *
 from operators import *
 from learn_formulas import LearnFramework
 
 # Testing formula classes
-def test_formulas():
+def test_ctl_formulas():
 	formula = CTLFormula.convertTextToFormula("EU(&(EG(p),AF(q)),q)")
 	
 	assert(formula.label == 'EU')
@@ -15,6 +15,18 @@ def test_formulas():
 	assert(formula.right.label == 'q')
 	assert(formula.getNumberOfSubformulas() == 6)
 	assert(formula.prettyPrint() == '(E(((EG p) & (AF q)) U q))')
+
+def test_atl_formulas():
+	formula = ATLFormula.convertTextToFormula("&(<01>F(p),<1>U(p,<0>G(q)))")
+	
+	assert(formula.label == '&')
+	assert(formula.left.label[-1] == 'F')
+	assert(formula.left.players == {0,1})
+	assert(formula.right.label[-1] == 'U')
+	assert(formula.right.players == {1})
+
+	assert(formula.getNumberOfSubformulas() == 6)
+
 
 # Testing graph structures
 def test_structures():
@@ -116,8 +128,7 @@ def test_learning():
 	name_list = [('sample_EX.sp', 'EX(p)'), ('sample_EG.sp', 'EG(p)'), ('sample_EF.sp', 'EF(p)'), ('sample_EU.sp', 'EU(p,q)')]
 	
 	for name in name_list:
-
-	
+		
 		sample_path = os.path.join(os.path.dirname(__file__), 'inputs', name[0])
 		learn = LearnFramework(sample_file=sample_path, size_bound=4, operators=ctl_operators)
 		learned_formula = learn.learn_ctl()
@@ -125,4 +136,14 @@ def test_learning():
 		
 		assert learned_formula.prettyPrint() == original_formula.prettyPrint(), "Failed for formula %s"%original_formula.prettyPrint()
 		
-		
+def test_cgs():
+	c = ConcurrentGameStructure()
+	with open('example.cgs', 'r') as file:
+		string = file.read()
+		c.read_structure(string)
+	
+	assert(c.size == 4)
+	assert(c.players == [0,1])
+	assert(c.init_states == {0})
+	assert(c.propositions == {'o', 'i', 'r','g'})
+	
