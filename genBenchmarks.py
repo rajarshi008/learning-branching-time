@@ -4,7 +4,8 @@ import os, shutil
 import datetime
 from sample import Sample, SampleKripke, consistency_checker
 from formulas import CTLFormula
-
+import math
+import csv
 
 class SampleGenerator:
 	'''
@@ -12,23 +13,19 @@ class SampleGenerator:
 	'''
 	def __init__(self,
 				formula_file = 'test_suite/formulas.txt',
-				trace_type = 'trace',
-				sample_sizes = [(10,10),(50,50)],
-				trace_lengths = [(6,6)],
+				num_models = [(5,5),(10,10)],
+				size_models = [(6,6)],
 				output_folder = 'test_suite/Random_generated/' + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
-				total_num = 1):
+				):
 
 		self.formula_file = formula_file
-		
-		self.sample_sizes = sample_sizes
-		
+		self.num_models = num_models
+		self.size_models = size_models
 		self.output_folder = output_folder
-		self.total_num = total_num
 		
-		self.operators = ['F', 'G', 'X', '!', '&', '|']
-
 		#self.structure_size = size
 		#self.gen_method = gen_method
+		
 
 		if os.path.exists(self.output_folder):
 			shutil.rmtree(self.output_folder)
@@ -37,24 +34,24 @@ class SampleGenerator:
 		formula_file_name = self.formula_file.split('/')[-1]
 
 		shutil.copyfile(self.formula_file, output_folder+'/'+formula_file_name)
-		self.sample_sizes.sort()
-		self.max_size = sample_sizes[-1]
+		self.num_models.sort()
+		self.max_size = num_models[-1]
 		
+		self.sample_stats = {}
 
 	def generateFromLargeSample(self):
 		
 		generated_files = self.generate(gen_from_large_sample=True)
 		#generating small benchmarks from large ones
-		self.generateSmallBenchmarks(generated_files, self.sample_sizes[:-1])
-
+		self.generateSmallBenchmarks(generated_files, self.num_models[:-1])
 
 
 	def generate(self, gen_from_large_sample=False):
 
 		if gen_from_large_sample:
-			sample_sizes = [self.max_size]
+			num_models = [self.max_size]
 		else:	
-			sample_sizes = self.sample_sizes
+			num_models = self.num_models
 
 		sample_folder = self.output_folder+'/Kripke/' 
 		os.makedirs(sample_folder)
@@ -66,6 +63,7 @@ class SampleGenerator:
 		generated_files = []
 		with open(self.formula_file, 'r') as file:
 			formula_num=0
+			sample_data = {}
 			for line in file:
 				
 				formula_text, propositions = line.split(';')
@@ -80,36 +78,63 @@ class SampleGenerator:
 				formula_num+=1
 				print('---------------Generating Benchmarks for formula %s---------------'%(formula.prettyPrint()))
 				
-				for size in sample_sizes:				
-					print('* Generating for size: %d, %d'%(size[0],size[1]))
-
-					sample_file = sample_folder+'f:'+str(formula_num).zfill(2)+'-'+'nw:'+str((size[0]+size[1])//2).zfill(3)+'.sp'
-					generated_files.append(sample_file)
-					sample = SampleKripke(positive=[], negative=[], propositions=propositions)
-					sample.generate_random(sample_file, size[0], size[1], formula, 10000)
-
-					assert consistency_checker(sample, formula)
-
+				for num in num_models:
+					for size in self.size_models:				
+						print('* Positive examples %d, Negative examples %d in size range (%d,%d)'%(num[0],num[1],size[0],size[1]))
+						sample_file = sample_folder+'f:'+str(formula_num).zfill(2)+'-'+'nm:'+str((num[0]+num[1])//2).zfill(3)+'-'+'sm:'+str((size[0]+size[1])//2).zfill(3)+'.sp'
+						generated_files.append(sample_file)
+						sample = SampleKripke(positive=[], negative=[], propositions=propositions)
+						deg = math.ceil(math.log(size[1],2)-1)
+						sample.generate_random(sample_file, num[0], num[1], size, deg, formula, 10000, write=False)
+						if sample.num_positive != num[0] or sample.num_negative != num[1]:
+							sample.generate_random_split(sample_file, num[0]-sample.num_positive, num[1]-sample.num_negative,\
+														 size, deg, formula, 20000, write=True)
+						sample.write(sample_file)
+						ver =  consistency_checker(sample, formula)
+						assert ver
+						sample_data = {'File': sample_file, 'Formula': formula.prettyPrint(),\
+										'Positive': num[0], 'Negative': num[1], 'Size Lower': size[0],\
+										'Size Upper': size[1], 'Verification': ver}
+						self.sample_stats[sample_file] = sample_data
+					 	
 		return generated_files
 
 
-	def generateSmallBenchmarks(self, generated_files, sizes):
-		
+	def generateSmallBenchmarks(self, generated_files, num_models):
+		print(generated_files, num_models)
 		for filename in generated_files:
 			
 			s = SampleKripke(positive=[],negative=[],propositions=[])
 			s.read_sample(filename)
-			
-			for (i,j) in sizes:
+			old_sample_data = self.sample_stats[filename]
+			for (i,j) in num_models:
 				
-				new_filename = filename.replace("nw:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
+				new_filename = filename.replace("nm:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
+				print(new_filename)
 				new_positive = s.positive[:i]
 				new_negative = s.negative[:j]
 
 				new_s = SampleKripke(positive=new_positive, negative=new_negative, propositions=s.propositions, formula=s.formula)
+				
+
+				sample_data = {'File': new_filename, 'Formula': old_sample_data['Formula'],\
+								'Positive': i, 'Negative':j, 'Size Lower': old_sample_data['Size Lower'],\
+								'Size Upper': old_sample_data['Size Upper'], 'Verification': old_sample_data['Verification']}
+				
+				self.sample_stats[new_filename] = sample_data
 				new_s.write(new_filename)
 
-
+	def writeStats(self):
+		'''Write stats as a csv file'''
+		stats_file = self.output_folder+'/stats.csv'
+		stats_list = list(self.sample_stats.values())
+		print(len(stats_list))
+		with open(stats_file, 'w') as file:
+			writer = csv.DictWriter(file, fieldnames=stats_list[0].keys())
+			writer.writeheader()
+			for data in stats_list:
+				writer.writerow(data)
+		
 
 #Data type for parser
 def tupleList(s):
@@ -124,23 +149,24 @@ def main():
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas.txt')
-	parser.add_argument('--size', '-s', dest='sample_sizes', default=[(10,10),(25,25),(50,50),(75,75),(100,100)], nargs='+', type=tupleList)
-	parser.add_argument('--total_num', '-n', dest='total_num', default=1, type=int)
+	parser.add_argument('--num_models', '-s', dest='num_models', default=[(5,5),(25,25),(50,50)], nargs='+', type=tupleList)
 	parser.add_argument('--output_folder', '-o', dest='output_folder', default = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+	parser.add_argument('--size_models', '-m', dest='size_models', default=[(5,15),(15,25)], nargs='+', type=tupleList)
 	#Structure sizes
 
 	args,unknown = parser.parse_known_args()
 	formula_file = 'test_suite/'+ args.formula_file
-	sample_sizes = list(args.sample_sizes)
+	num_models = list(args.num_models)
 	output_folder = 'test_suite/' + args.output_folder
-	total_num = int(args.total_num)
+	size_models = list(args.size_models)
 
 	generator = SampleGenerator(formula_file=formula_file,
-				sample_sizes=sample_sizes,
+				num_models=num_models,
 				output_folder=output_folder,
-				total_num=total_num)
+				size_models=size_models)
 
 	generator.generateFromLargeSample()
+	generator.writeStats()
 
 if __name__=='__main__':
 	main()

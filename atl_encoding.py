@@ -138,7 +138,7 @@ class ATLSATEncoding:
 		)
 
 	def operatorsSemantics(self, formula_size):
-
+		
 		i = formula_size-1
 
 		for cgs_id, cgs in enumerate(self.sample.positive + self.sample.negative):
@@ -248,10 +248,7 @@ class ATLSATEncoding:
 														for only_arg in range(i)\
 														])\
 													))
-
-
 			
-
 			
 			if 'U' in self.operators:
 				#U

@@ -5,7 +5,7 @@ from pysmt.shortcuts import Symbol, And, Or, Implies, Solver, Not, ExactlyOne, B
 
 class CTLSATEncoding:
 	
-	def __init__(self, sample, propositions, operators, solver_name):
+	def __init__(self, sample, propositions, operators, solver_name, neg_props):
 		
 		
 		self.solver = Solver(name=solver_name)
@@ -16,7 +16,12 @@ class CTLSATEncoding:
 		self.unary_operators = ctl_unary
 		self.binary_operators = ctl_binary
 
-		self.operators_and_propositions = self.operators + self.propositions
+		self.neg_props = neg_props
+		if self.neg_props:
+			self.neg_propositions = map(lambda x: '!'+x, self.neg_props)
+			self.operators_and_propositions = self.operators + self.propositions + self.neg_propositions
+		else:
+			self.operators_and_propositions = self.operators + self.propositions
 
 		# initializing the variables
 		self.x = {}
@@ -93,7 +98,14 @@ class CTLSATEncoding:
 									And([Iff(self.y[(i, kripke_id, state)], Bool(p in kripke.labels[state]))\
 									for state in kripke.states\
 										])))
-			
+		if self.neg_props:
+			for p in self.neg_props:
+				for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
+					self.solver.add_assertion(Implies(self.x[(i, p)],\
+										And([Iff(self.y[(i, kripke_id, state)], Not(Bool(p in kripke.labels[state])))\
+										for state in kripke.states\
+											])))
+
 		
 	def exactlyOneOperator(self, formula_size):
 		

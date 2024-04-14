@@ -5,13 +5,13 @@
     "Solver": "z3",
     "Players": 2,
     "Propositions": 3,
-    "Encoding Time": 0.17,
+    "Encoding Time": 0.14,
     "Solving Time": 0.01,
-    "Total Time": 0.17,
+    "Total Time": 0.16,
     "Original Formula": null,
-    "Learned Formula": "(! <1>F(g))",
+    "Learned Formula": "AX(!(g))",
     "Learned Formula Size": 3,
     "Model Type": "cgs",
-    "Formula Type": "atl",
+    "Formula Type": "ctl",
     "Verification": true
 }

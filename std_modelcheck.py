@@ -11,13 +11,13 @@ class ModelChecker():
 		self.formula_type = formula_type
 
 	def check(self):
-		if self.model_type == 'kripke' and  self.formula_type == 'ctl':
+		if self.formula_type == 'ctl':
 				return self.checkCTLKripke()
-		if self.model_type == 'cgs' and self.formula_type == 'atl':
+		elif self.formula_type == 'atl':
 			return self.checkATLCGS() 
 	
 	def checkCTLKripke(self):
-		print('instead this')
+		
 		self.SatSetCTL = {}
 		sat_sets_kripke = self.computeSatSet(self.formula)
 		
@@ -199,14 +199,14 @@ class ModelChecker():
 
 			elif formula.label[-1] == 'X':
 
-				self.SatSetATL[formula] = self.model.predecessors(left_set, formula.players)
+				self.SatSetATL[formula] = self.model.predecessors_players(left_set, formula.players)
 				return self.SatSetATL[formula]
 
 			elif formula.label[-1] == 'F':
 
 				lfp = left_set
 				while True:
-					pre_lfp = self.model.predecessors(lfp, formula.players)
+					pre_lfp = self.model.predecessors_players(lfp, formula.players)
 					new_lfp = pre_lfp - lfp
 					if new_lfp == set():
 						break
@@ -219,7 +219,7 @@ class ModelChecker():
 
 				gfp = left_set
 				while True:
-					post_gfp = left_set & self.model.predecessors(gfp, formula.players)
+					post_gfp = left_set & self.model.predecessors_players(gfp, formula.players)
 					new_gfp = gfp - post_gfp
 					if new_gfp == set():
 						break
@@ -231,9 +231,9 @@ class ModelChecker():
 			elif formula.label[-1] == 'U':
 				
 				lfp = right_set
-				print(left_set,right_set)
+				
 				while True:
-					pre_lfp = left_set & self.model.predecessors(lfp, formula.players)
+					pre_lfp = left_set & self.model.predecessors_players(lfp, formula.players)
 					new_lfp = pre_lfp - lfp
 					if new_lfp == set():
 						break

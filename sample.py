@@ -80,7 +80,15 @@ class SampleKripke(Sample):
 			
 			self.calc_stats()
 
-	def generate_random(self, file_path, total_num_positive=10, total_num_negative=10, formula=None, total_trials=10000):
+	def generate_random(self, 
+					 file_path, 
+					 total_num_positive=10, 
+					 total_num_negative=10, 
+					 model_size=(2,10),
+					 model_deg=3,
+					 formula=None,
+					 total_trials=10000,
+					 write=True):
 		'''
 		Generates a random sample of Kripke structures
 		'''
@@ -90,16 +98,18 @@ class SampleKripke(Sample):
 		trials = 0
 		num_positive = 0
 		num_negative = 0
-
+		print('Method: Standard Random Generation')
 		while True:
+			
 			trials += 1
 			if trials == total_trials:
 				break
-			
+			if trials%1000 == 0:
+				print('- Trials: %d, Positive: %d, Negative: %d'%(trials, num_positive, num_negative))
 			
 			transition_density = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
-			num_states = random.randint(2, 10)
-			max_deg = random.randint(2, 4)
+			num_states = random.randint(model_size[0], model_size[1])
+			max_deg = random.randint(model_deg-1, model_deg+1)
 			try:
 				rand_kripke = generate_random_kripke(max_deg, max_deg, num_states, transition_density, self.propositions)
 			except:
@@ -116,10 +126,144 @@ class SampleKripke(Sample):
 			elif num_positive == total_num_positive and num_negative == total_num_negative:
 				break
 
-		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(num_positive, num_negative, trials))		
 		self.formula = formula
 		self.calc_stats()
-		self.write(file_path)
+		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(self.num_positive, self.num_negative, trials))		
+		if write:
+			self.write(file_path)
+
+	def generate_random_split(self, 
+					 file_path,
+					 total_num_positive=10,
+					 total_num_negative=10,
+					 model_size=(2,10),
+					 model_deg=3,
+					 formula=None, 
+					 total_trials=10000,
+					 write=True):
+		'''
+		Special function that generates a random sample of Kripke structures by spliting the size of structures
+		'''
+		
+		num_positive = 0
+		num_negative = 0
+		trials1 = 0
+		total_intermediate_trials = total_trials//10
+		print('Method: Splitting-based Random Generation')
+		# For positive examples
+		while True:
+			trials1 += 1
+			
+			if trials1 == total_trials or num_positive == total_num_positive:
+				break
+
+			if trials1%200 == 0:
+				print('- Trials: %d, Positive: %d, Negative: %d'%(trials1, num_positive, num_negative))
+			
+			transition_density_1 = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
+			num_states_1 = random.randint(model_size[0]//2, model_size[1]//2)
+			max_deg_1 = random.randint(model_deg-1, model_deg+1)
+			positive_1 = None
+			intermediate_trials = 0
+			while True:
+				intermediate_trials += 1
+				if intermediate_trials == total_intermediate_trials:
+					break
+				try:
+					rand_kripke_1 = generate_random_kripke(max_deg_1, max_deg_1, num_states_1, transition_density_1, self.propositions)
+				except:
+					continue
+				checker = ModelChecker(model=rand_kripke_1, formula=formula)
+				if checker.check():
+					positive_1 = rand_kripke_1 
+					break
+			
+			positive_2 = None
+			transition_density_2 = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
+			num_states_2 = random.randint(model_size[0]//2, model_size[1]//2)
+			max_deg_2 = random.randint(model_deg-1, model_deg+1)
+			intermediate_trials = 0
+			while True:
+				intermediate_trials += 1
+				if intermediate_trials == total_intermediate_trials:
+					break
+				try:
+					rand_kripke_2 = generate_random_kripke(max_deg_2, max_deg_2, num_states_2, transition_density_2, self.propositions)
+				except:
+					continue
+				checker = ModelChecker(model=rand_kripke_2, formula=formula)
+				if checker.check():
+					positive_2 = rand_kripke_2 
+					break
+			if positive_1 == None or positive_2 == None:
+				continue
+			#print('Found two models')
+			rand_kripke = merge_kripkes(positive_1, positive_2)
+			checker = ModelChecker(model=rand_kripke, formula=formula)
+
+			if checker.check():
+				self.positive.append(rand_kripke)
+				num_positive += 1
+
+		# For negative examples
+		trials2 = 0
+		while True:
+			trials2 += 1
+			if trials2 == total_trials or num_negative == total_num_negative:
+				break
+			if trials2%200 == 0:
+				print('- Trials: %d, Positive: %d, Negative: %d'%(trials2, num_positive, num_negative))
+			
+			transition_density_1 = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
+			num_states_1 = random.randint(model_size[0]//2, model_size[1]//2)
+			max_deg_1 = random.randint(model_deg-1, model_deg+1)
+			intermediate_trials = 0
+			negative_1 = None
+			while True:
+				intermediate_trials += 1
+				if intermediate_trials == total_intermediate_trials:
+					break
+				try:
+					rand_kripke_1 = generate_random_kripke(max_deg_1, max_deg_1, num_states_1, transition_density_1, self.propositions)
+				except:
+					continue
+				checker = ModelChecker(model=rand_kripke_1, formula=formula)
+				if not checker.check():
+					negative_1 = rand_kripke_1 
+					break
+
+			transition_density_2 = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
+			num_states_2 = random.randint(model_size[0]//2, model_size[1]//2)
+			max_deg_2 = random.randint(model_deg-1, model_deg+1)
+			intermediate_trials = 0
+			negative_2 = None
+			while True:
+				intermediate_trials += 1
+				if intermediate_trials == total_intermediate_trials:
+					break
+				try:
+					rand_kripke_2 = generate_random_kripke(max_deg_2, max_deg_2, num_states_2, transition_density_2, self.propositions)
+				except:
+					continue
+				checker = ModelChecker(model=rand_kripke_2, formula=formula)
+				if not checker.check():
+					negative_2 = rand_kripke_2 
+					break
+			if negative_1 == None or negative_2 == None:
+				continue	
+			rand_kripke = merge_kripkes(negative_1, negative_2)
+			checker = ModelChecker(model=rand_kripke, formula=formula)
+
+			if not checker.check():
+				self.negative.append(rand_kripke)
+				num_negative += 1
+
+			
+		self.formula = formula
+		self.calc_stats()
+		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(self.num_positive, self.num_negative, trials1+trials2))		
+		if write:
+			self.write(file_path)
 
 	def write(self, file_path):
 		# create file path if it does not exist
@@ -186,7 +330,9 @@ class SampleCGS(Sample):
 			
 			self.calc_stats()
 
-	
+			self.formula = formula
+			self.calc_stats()
+			self.write(file_path)
 
 #s = SampleKripke()
 #s.read_sample('tests/inputs/example_sample.sp')
@@ -203,8 +349,25 @@ class SampleCGS(Sample):
 #sample.generate_random('random_sample.sp', 30, 30, formula, 10000)
 
 
-formula = ATLFormula.convertTextToFormula('!(<1>F(g))')
-sample = SampleCGS()
-sample_path = 'sample_cgs.sp'
-sample.read_sample(sample_path)
-print(consistency_checker(sample, formula, model_type='cgs', formula_type='atl'))
+#formula = ATLFormula.convertTextToFormula('!(<1>F(g))')
+#sample = SampleCGS()
+#sample_path = 'sample_cgs.sp'
+#sample.read_sample(sample_path)
+#print(consistency_checker(sample, formula, model_type='cgs', formula_type='atl'))
+
+#formula_list = ['EF(p)', 'AG(p)', 'EU(p,q)', '&(EF(p),AX(q))', 'AG(->(p,AF(q)))']
+#formula = CTLFormula.convertTextToFormula(formula_list[4])
+
+#sample = SampleKripke(positive=[], negative=[], propositions=['p', 'q'])
+#total_num_positive = 60
+#total_num_negative = 60
+#model_size = (40,50)
+#deg = 4
+
+#sample.generate_random('random_sample.sp', total_num_positive, total_num_negative, model_size, deg, formula, 1000)
+#if sample.num_positive != total_num_positive or sample.num_negative != total_num_negative:
+#	print('Need to generate more %d postive and %d negative examples'%(total_num_positive-sample.num_positive, total_num_negative-sample.num_negative))
+#	sample.generate_random_split('random_sample.sp', total_num_positive-sample.num_positive, \
+#							  	total_num_negative-sample.num_negative, model_size, deg, formula, 1000)
+	
+#print(consistency_checker(sample, formula))

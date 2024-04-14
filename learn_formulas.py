@@ -134,7 +134,7 @@ class LearnFramework:
 			enc.encodeFormula(size)
 			enc_time_incr = time.time() - enc_time_incr
 			self.enc_time += enc_time_incr
-
+			
 			# SAT solving
 			solving_time_incr = time.time()
 			solverRes = enc.solver.solve()
@@ -184,10 +184,13 @@ def main():
 	parser.add_argument('-f', '--input_file', default='sample_cgs.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=[], help='Choice of CTL operators')
-	parser.add_argument('-z', '--solver', default='z3', choices=['z3', 'msat'], help='Choice of solver; note you must have the chosen solver installed')
+	parser.add_argument('-z', '--solver', default='msat', choices=['z3', 'msat', 'btor'], help='Choice of solver; note you must have the chosen solver installed')
 	parser.add_argument('-j', '--json_file', default='metadata.json', help='The json file to store metadata')
-	parser.add_argument('-g', '--game', action='store_true', default=True, help='Input is a CGS sample file')
-	parser.add_argument('-a', '--atl', action='store_true', default=True, help='Learn CTL instead of ATL')
+	parser.add_argument('-g', '--game', action='store_true', default=False, help='Input is a CGS sample file')
+	parser.add_argument('-a', '--atl', action='store_true', default=False, help='Learn CTL instead of ATL')
+	#Learning optimizations
+	#parser.add_argument('-t', '--timeout', default=1800, type=int, help='Timeout for the solver')
+	
 	args = parser.parse_args()
 
 	#print(f"Input file: {args.input_file}")
