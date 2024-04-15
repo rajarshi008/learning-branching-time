@@ -328,11 +328,72 @@ class SampleCGS(Sample):
 				c.read_structure(cgs_str)
 				self.negative.append(c)
 			
-			self.calc_stats()
 
-			self.formula = formula
 			self.calc_stats()
 			self.write(file_path)
+
+	def generate_random(self, 
+					 file_path, 
+					 total_num_positive=10, 
+					 total_num_negative=10, 
+					 model_size=(2,10),
+					 model_deg=3,
+					 formula=None,
+					 players=[0,1],
+					 total_trials=10000,
+					 write=True
+					 ):
+		'''
+		Generates a random sample of Kripke structures
+		'''
+		trials = 0
+		num_positive = 0
+		num_negative = 0
+		print('Method: Standard Random Generation')
+		while True:
+			
+			trials += 1
+			if trials == total_trials:
+				break
+			if trials%1000 == 0:
+				print('- Trials: %d, Positive: %d, Negative: %d'%(trials, num_positive, num_negative))
+			
+			transition_density = random.choices(['low', 'high'], [0.8, 0.2], k=1)[0]
+			num_states = random.randint(model_size[0], model_size[1])
+			max_deg = random.randint(model_deg-1, model_deg+1)
+			try:
+				rand_cgs = generate_random_cgs(max_in_deg=max_deg, max_out_deg=max_deg, num_states=num_states,\
+								transition_density=transition_density, propositions=self.propositions, \
+								players=players, turn_based=True)
+			except:
+				continue
+			checker = ModelChecker(model=rand_cgs, formula=formula, model_type='cgs', formula_type='atl')
+
+			if checker.check() and num_positive < total_num_positive:
+				self.positive.append(rand_cgs)
+				num_positive += 1
+			elif not checker.check() and num_negative < total_num_negative:
+				self.negative.append(rand_cgs)
+				num_negative += 1
+			elif num_positive == total_num_positive and num_negative == total_num_negative:
+				break
+
+		self.formula = formula
+		self.calc_stats()
+		print('##### Generated! Positive: %d, Negative: %d, Trials: %d #####'%(self.num_positive, self.num_negative, trials))		
+		if write:
+			self.write(file_path)
+
+	def write(self, file_path):
+		# create file path if it does not exist
+		
+		with open(file_path, 'w') as file:
+			file.write('---\n---\n'.join([cgs.to_string() for cgs in self.positive]))
+			file.write('---\n---\n---\n')
+			file.write('---\n---\n'.join([cgs.to_string() for cgs in self.negative]))
+			if self.formula != None:
+				file.write('---\n---\n---\n')
+				file.write(str(self.formula))
 
 #s = SampleKripke()
 #s.read_sample('tests/inputs/example_sample.sp')
@@ -371,3 +432,13 @@ class SampleCGS(Sample):
 #							  	total_num_negative-sample.num_negative, model_size, deg, formula, 1000)
 	
 #print(consistency_checker(sample, formula))
+
+# formula = ATLFormula.convertTextToFormula('!(<1>F(g))')
+# sample = SampleCGS(positive=[], negative=[], propositions=['p', 'q'])
+# total_num_positive = 5
+# total_num_negative = 5
+# model_size = (5,10)
+# players=[0,1]
+# deg = 4
+
+# sample.generate_random('random_sample.sp', total_num_positive, total_num_negative, model_size, deg, formula, players, 1000)

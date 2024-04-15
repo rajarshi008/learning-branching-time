@@ -376,7 +376,7 @@ class ATLFormula(SimpleTree):
 				_temporal_unary_expression_: players unary_operator "(" formula ")"
 				_temporal_binary_expression_: players binary_operator "(" formula "," formula ")"
 				variable: /[a-z]/
-				players: "<" /[0-9]+/ ">"
+				players: "<" /[0-9]+/ ">" | "<>"
 				!binary_operator: "&" | "|" | "->" | "U"
 				!unary_operator: "!" | "X" | "F" | "G"
 				
@@ -417,7 +417,10 @@ class TreeToATLFormula(Transformer):
 			return ATLFormula([connector, ATLFormula(["p", None, None]), ATLFormula(["!", ATLFormula(["p", None, None] ), None])])
 		
 		def players(self, args):
-			return '<'+str(args[0])+'>'
+			if args == []:
+				return '<>'
+			else:
+				return '<'+str(args[0])+'>'
 
 		def binary_operator(self, args):
 			return str(args[0])
@@ -425,5 +428,7 @@ class TreeToATLFormula(Transformer):
 			return str(args[0])
 		
 
-#formula = ATLFormula.convertTextToFormula("&(<1>U(p,q),q)")
+#formula = ATLFormula.convertTextToFormula("<>G(->(p,<01>F(q)))")
 #print(formula)
+#<>G(->(p,<01>F(q)));p,q
+#<>G(->(p,<1>X(q)));p,q

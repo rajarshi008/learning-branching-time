@@ -1,8 +1,6 @@
 
 from graphviz import Source
 import random
-import numpy as np
-from scipy.stats import geom, expon
 
 
 epsilon = ''
@@ -49,6 +47,7 @@ def generate_random_kripke(max_in_deg, max_out_deg, num_states, transition_densi
 
 def generate_random_cgs(max_in_deg, max_out_deg, num_states, transition_density, propositions, players, turn_based):
 	'''Generates a random Concurrent Game structure with given parameters'''
+	#print(max_in_deg, max_out_deg, num_states, transition_density, propositions, players, turn_based)
 	rand_cgs = ConcurrentGameStructure(init_states=set(), transitions={}, labels={}, players=set(players), propositions=propositions)
 	rand_cgs.add_init_state()
 	for _ in range(1, num_states):

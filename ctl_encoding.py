@@ -17,11 +17,8 @@ class CTLSATEncoding:
 		self.binary_operators = ctl_binary
 
 		self.neg_props = neg_props
-		if self.neg_props:
-			self.neg_propositions = map(lambda x: '!'+x, self.neg_props)
-			self.operators_and_propositions = self.operators + self.propositions + self.neg_propositions
-		else:
-			self.operators_and_propositions = self.operators + self.propositions
+		self.neg_propositions = list(map(lambda x: '!'+x, self.propositions)) if self.neg_props else []
+		self.operators_and_propositions = self.operators + self.propositions + self.neg_propositions
 
 		# initializing the variables
 		self.x = {}
@@ -99,10 +96,10 @@ class CTLSATEncoding:
 									for state in kripke.states\
 										])))
 		if self.neg_props:
-			for p in self.neg_props:
+			for p in self.neg_propositions:
 				for kripke_id, kripke in enumerate(self.sample.positive + self.sample.negative):
 					self.solver.add_assertion(Implies(self.x[(i, p)],\
-										And([Iff(self.y[(i, kripke_id, state)], Not(Bool(p in kripke.labels[state])))\
+										And([Iff(self.y[(i, kripke_id, state)], (Bool(p not in kripke.labels[state])))\
 										for state in kripke.states\
 											])))
 
@@ -441,6 +438,8 @@ class CTLSATEncoding:
 		#print(operator)
 		if operator in self.propositions:
 			return CTLFormula([operator, None, None])
+		if operator in self.neg_propositions:
+			return CTLFormula(['!', CTLFormula([operator[1:], None, None]), None])
 		
 		elif operator in self.unary_operators:
 			left_child = getValue(rowId, self.l)

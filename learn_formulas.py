@@ -66,12 +66,12 @@ class LearnFramework:
 			self.dump_json(self.json_file)
 
 
-	def learn_ctl(self):
+	def learn_ctl(self, neg_props=False):
 		
 		formula = None
 
 		enc_time_incr = time.time()
-		enc = CTLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name)
+		enc = CTLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name, neg_props=neg_props)
 		enc_time_incr = time.time() - enc_time_incr
 		self.enc_time += enc_time_incr
 
@@ -181,7 +181,7 @@ class LearnFramework:
 
 def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
-	parser.add_argument('-f', '--input_file', default='sample_cgs.sp', help='The input sample file')
+	parser.add_argument('-f', '--input_file', default='sample_kr.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=[], help='Choice of CTL operators')
 	parser.add_argument('-z', '--solver', default='msat', choices=['z3', 'msat', 'btor'], help='Choice of solver; note you must have the chosen solver installed')
@@ -189,6 +189,7 @@ def main():
 	parser.add_argument('-g', '--game', action='store_true', default=False, help='Input is a CGS sample file')
 	parser.add_argument('-a', '--atl', action='store_true', default=False, help='Learn CTL instead of ATL')
 	#Learning optimizations
+	parser.add_argument('-n', '--neg_props', action='store_true', default=False, help='Negation optimization')
 	#parser.add_argument('-t', '--timeout', default=1800, type=int, help='Timeout for the solver')
 	
 	args = parser.parse_args()
@@ -209,7 +210,7 @@ def main():
 	if args.atl:
 		learn.learn_atl()
 	else:
-		learn.learn_ctl()
+		learn.learn_ctl(neg_props=args.neg_props)
 	
 if __name__ == "__main__":
 	main()
