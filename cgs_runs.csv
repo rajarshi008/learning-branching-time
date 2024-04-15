@@ -1,0 +1,10 @@
+Learned Formula Size,Sample,Model Type,Sample size,Size Bound,Players,Encoding Time,Total Time,Solving Time,Learned Formula,Formula Type,Solver,Original Formula,Propositions,Verification
+5,test_suite/random_cgs_1/CGS/f:02-nw:025-sm:010.sp,cgs,50,10,2,456.74,487.49,30.75,<>G((p -> <1>X(q))),atl,msat,<>G((p -> <1>X(q))),2,True
+5,test_suite/random_cgs_1/CGS/f:02-nw:005-sm:020.sp,cgs,10,10,2,163.68,198.52,34.84,"<>X((<1>X(<0,1>G(p)) -> <0,1>G(p)))",atl,msat,<>G((p -> <1>X(q))),2,True
+3,test_suite/random_cgs_1/CGS/f:01-nw:005-sm:020.sp,cgs,10,10,2,47.85,49.14,1.28,"<>G(<0,1>F(q))",atl,msat,"<>G((p -> <0,1>F(q)))",2,True
+5,test_suite/random_cgs_1/CGS/f:01-nw:025-sm:010.sp,cgs,50,10,2,659.99,717.91,57.93,"<>G((p -> <0,1>F(q)))",atl,msat,"<>G((p -> <0,1>F(q)))",2,True
+4,test_suite/random_cgs_1/CGS/f:02-nw:005-sm:010.sp,cgs,10,10,2,14.8,15.3,0.5,(<1>F(p) -> <>G(<1>F(p))),atl,msat,<>G((p -> <1>X(q))),2,True
+3,test_suite/random_cgs_1/CGS/f:01-nw:005-sm:030.sp,cgs,10,10,2,131.09,133.89,2.8,"<>G(<0,1>F(q))",atl,msat,"<>G((p -> <0,1>F(q)))",2,True
+3,test_suite/random_cgs_1/CGS/f:01-nw:025-sm:020.sp,cgs,50,10,2,907.09,911.44,4.34,"<>G(<0,1>F(q))",atl,msat,"<>G((p -> <0,1>F(q)))",2,True
+4,test_suite/random_cgs_1/CGS/f:02-nw:005-sm:030.sp,cgs,10,10,2,266.87,284.45,17.58,<>(<0>X(q) U <1>X(<0>X(q))),atl,msat,<>G((p -> <1>X(q))),2,True
+3,test_suite/random_cgs_1/CGS/f:01-nw:005-sm:010.sp,cgs,10,10,2,6.1,6.22,0.12,<1>X(<1>F(q)),atl,msat,"<>G((p -> <0,1>F(q)))",2,True
