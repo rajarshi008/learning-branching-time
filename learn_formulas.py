@@ -146,9 +146,9 @@ class LearnFramework:
 			if solverRes == True:
 				#print('sat')
 				solverModel = enc.solver.get_model()
-				for var in solverModel:
-					if solverModel[var[0]].is_true():
-						print(var)
+				#for var in solverModel:
+				#	if solverModel[var[0]].is_true():
+				#		print(var)
 				formula = enc.reconstructWholeFormula(solverModel, size)
 				print(formula)
 				print("Found formula {}".format(formula.prettyPrint()))
