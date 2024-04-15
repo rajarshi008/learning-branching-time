@@ -2,7 +2,6 @@ import argparse
 import json
 import time
 from sample import SampleKripke, SampleCGS, consistency_checker
-from formulas import CTLFormula
 from operators import *
 from ctl_encoding import CTLSATEncoding
 from atl_encoding import ATLSATEncoding
@@ -32,8 +31,6 @@ class LearnFramework:
 		if self.cgs:
 			self.sample = SampleCGS(positive=[], negative=[], propositions=[])
 			self.sample.read_sample(self.sample_file)
-			self.sample.positive[0].show()
-			#self.sample.negative[0].show()
 
 			og_formula_text = None
 			if self.sample.formula != None:
@@ -207,11 +204,12 @@ def main():
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							operators=args.operators, solver_name=args.solver, \
 							cgs=args.game, atl=args.atl)
-	
+	'''
 	if args.atl:
 		learn.learn_atl()
 	else:
 		learn.learn_ctl(neg_props=args.neg_props)
-	
+	'''
+
 if __name__ == "__main__":
 	main()
