@@ -98,7 +98,8 @@ class LearnFramework:
 				#	if solverModel[var[0]].is_true():
 				#		print(var)
 				formula = enc.reconstructWholeFormula(solverModel, size)
-				print("Found formula {}".format(formula.prettyPrint()))
+				total_time = round(self.enc_time + self.solving_time,2)
+				print("Found formula {} in time {}".format(formula.prettyPrint(), total_time))
 				break
 		
 		# Formula verification
@@ -111,7 +112,7 @@ class LearnFramework:
 			print('No formula found within %d size bound'%size)
 
 		self.metadata.update({'Encoding Time':round(self.enc_time,2), 'Solving Time': round(self.solving_time,2),
-							'Total Time': round(self.enc_time + self.solving_time,2), 'Learned Formula': formula.prettyPrint(),
+							'Total Time': total_time, 'Learned Formula': formula.prettyPrint(),
 							'Learned Formula Size': size, 'Verification': ver})
 
 		self.dump_json(self.json_file)
@@ -150,8 +151,8 @@ class LearnFramework:
 				#	if solverModel[var[0]].is_true():
 				#		print(var)
 				formula = enc.reconstructWholeFormula(solverModel, size)
-				print(formula)
-				print("Found formula {}".format(formula.prettyPrint()))
+				total_time = round(self.enc_time + self.solving_time,2)
+				print("Found formula {} in time {}".format(formula.prettyPrint(), total_time))
 				break
 			
 			
@@ -181,7 +182,7 @@ class LearnFramework:
 
 def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
-	parser.add_argument('-f', '--input_file', default='sample_kr.sp', help='The input sample file')
+	parser.add_argument('-f', '--input_file', default='sample_cgs.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=[], help='Choice of CTL operators')
 	parser.add_argument('-z', '--solver', default='msat', choices=['z3', 'msat', 'btor'], help='Choice of solver; note you must have the chosen solver installed')
