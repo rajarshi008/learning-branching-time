@@ -5,6 +5,7 @@ from sample import SampleKripke, SampleCGS, consistency_checker
 from operators import *
 from ctl_encoding import CTLSATEncoding
 from atl_encoding import ATLSATEncoding
+import cProfile
 
 class LearnFramework:
 
@@ -68,7 +69,6 @@ class LearnFramework:
 	def learn_ctl(self, neg_props=False):
 		
 		formula = None
-
 		enc_time_incr = time.time()
 		enc = CTLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name, neg_props=neg_props)
 		enc_time_incr = time.time() - enc_time_incr
@@ -188,6 +188,7 @@ def main():
 	parser.add_argument('-j', '--json_file', default='metadata.json', help='The json file to store metadata')
 	parser.add_argument('-g', '--game', action='store_true', default=False, help='Input is a CGS sample file')
 	parser.add_argument('-a', '--atl', action='store_true', default=False, help='Learn CTL instead of ATL')
+	parser.add_argument('-w', '--without_until', action='store_true', default=False, help='Without Until operator')
 	#Learning optimizations
 	parser.add_argument('-n', '--neg_props', action='store_true', default=False, help='Negation optimization')
 	#parser.add_argument('-t', '--timeout', default=1800, type=int, help='Timeout for the solver')
@@ -200,9 +201,14 @@ def main():
 
 	if args.operators == [] and args.atl:
 		args.operators = atl_operators
+		if args.without_until:
+			args.operators = [op for op in atl_operators if op != 'U']
+
 	elif args.operators == [] and not args.atl:
 		args.operators = ctl_operators
-	
+		if args.without_until:
+			args.operators = [op for op in ctl_operators if op != 'AU' and op != 'EU']
+			
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							operators=args.operators, solver_name=args.solver, \
 							cgs=args.game, atl=args.atl)

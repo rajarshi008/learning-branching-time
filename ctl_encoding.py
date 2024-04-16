@@ -13,9 +13,10 @@ class CTLSATEncoding:
 		self.propositions = propositions
 		self.operators = operators
 
-		self.unary_operators = ctl_unary
-		self.binary_operators = ctl_binary
+		self.unary_operators = [op for op in operators if op in ctl_unary]
+		self.binary_operators = [op for op in operators if op in ctl_binary]
 
+		print('Operators recived:',operators)
 		self.neg_props = neg_props
 		self.neg_propositions = list(map(lambda x: '!'+x, self.propositions)) if self.neg_props else []
 		self.operators_and_propositions = self.operators + self.propositions + self.neg_propositions
