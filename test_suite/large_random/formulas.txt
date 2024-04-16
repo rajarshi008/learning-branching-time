@@ -1,4 +1,4 @@
-AG(AF(!(p)));p,q
+AG(AF(p));p,q
 AG(EF(q));p,q
 AG(->(p,AF(q)));p,q
 AG(|(p,q));p,q
