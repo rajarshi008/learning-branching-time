@@ -265,11 +265,20 @@ class ATLSATEncoding:
 														])\
 													))
 
+
 	
 	def preConstraint(self, i, j, cgs, cgs_id, state):
 
-		all_transitions = cgs.transitions[state].keys()
-		result = Or([\
+		all_transitions = cgs.actions[state]
+		
+		if self.turn_based:
+			state_player = cgs.state_player[state]	
+			result = And(Implies(self.A[(i,state_player)],Or([self.y[(j, cgs_id, cgs.transitions[state][trans])] \
+								for trans in all_transitions])),
+						Implies(Not(self.A[(i,state_player)]),And([self.y[(j, cgs_id, cgs.transitions[state][trans])] \
+								for trans in all_transitions])))	
+		else:
+			result = Or([\
 					And([ Implies( And([Implies(self.A[(i,player)],Bool(trans1[player]==trans2[player]))\
 											for player in cgs.players\
 										]),\
@@ -277,12 +286,21 @@ class ATLSATEncoding:
 							for trans2 in all_transitions\
 						]) for trans1 in all_transitions\
 					])
+		
 		return result
 	
 	def preConstraintTemporal(self, i, cgs, cgs_id, state, dist):
 
-		all_transitions = cgs.transitions[state].keys()
-		result = Or([\
+		all_transitions = cgs.actions[state]
+
+		if self.turn_based:
+			state_player = cgs.state_player[state]	
+			result = And(Implies(self.A[(i,state_player)],Or([self.y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
+								for trans in all_transitions])),
+						Implies(Not(self.A[(i,state_player)]),And([self.y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
+								for trans in all_transitions])))
+		else:
+			result = Or([\
 					And([ Implies( And([Implies(self.A[(i,player)],Bool(trans1[player]==trans2[player]))\
 											for player in cgs.players\
 										]),\

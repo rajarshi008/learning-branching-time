@@ -57,12 +57,17 @@ class SampleKripke(Sample):
 			lines = file.read()
 			info = lines.split('---\n---\n---\n')	
 			
+			#if len(info) == 1:
+
+			print(len(info))
 			if len(info) == 2:
 				positive_str, negative_str = info
 				self.formula = None
 			elif len(info) == 3:
 				positive_str, negative_str, formula_str = info
 				self.formula = CTLFormula.convertTextToFormula(formula_str)
+			else:
+				raise Exception("File format not correct for file %s"%(file_path))
 
 			# Read positive examples
 			kripke_strs = positive_str.split('---\n---\n')
@@ -229,7 +234,7 @@ class SampleKripke(Sample):
 					continue
 				checker = ModelChecker(model=rand_kripke_1, formula=formula)
 				if not checker.check():
-					negative_1 = rand_kripke_1 
+					negative_1 = rand_kripke_1
 					break
 
 			transition_density_2 = random.choices(['low', 'medium', 'high'], [0.7, 0.2, 0.1], k=1)[0]
@@ -396,7 +401,7 @@ class SampleCGS(Sample):
 				file.write(str(self.formula))
 
 #s = SampleKripke()
-#s.read_sample('tests/inputs/example_sample.sp')
+#s.read_sample('sample_kr.sp')
 #example = s.positive[1]
 #example.show()
 #print(example)

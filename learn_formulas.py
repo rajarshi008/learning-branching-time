@@ -45,6 +45,7 @@ class LearnFramework:
 							'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size,
 							'Model Type': self.model_type, 'Formula Type': self.formula_type
 							}
+			
 		else:
 			self.sample = SampleKripke(positive=[], negative=[], propositions=[])
 			self.sample.read_sample(self.sample_file)
@@ -60,7 +61,8 @@ class LearnFramework:
 							'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size,
 							'Model Type': self.model_type, 'Formula Type': self.formula_type
 							}
-			self.dump_json(self.json_file)
+		
+		self.dump_json(self.json_file)
 
 
 	def learn_ctl(self, neg_props=False):
@@ -179,7 +181,7 @@ class LearnFramework:
 
 def main():
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
-	parser.add_argument('-f', '--input_file', default='sample_cgs.sp', help='The input sample file')
+	parser.add_argument('-f', '--input_file', default='sample_kr.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
 	parser.add_argument('-o', '--operators', nargs='+', default=[], help='Choice of CTL operators')
 	parser.add_argument('-z', '--solver', default='msat', choices=['z3', 'msat', 'btor'], help='Choice of solver; note you must have the chosen solver installed')
@@ -204,12 +206,12 @@ def main():
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							operators=args.operators, solver_name=args.solver, \
 							cgs=args.game, atl=args.atl)
-	'''
+	
 	if args.atl:
 		learn.learn_atl()
 	else:
 		learn.learn_ctl(neg_props=args.neg_props)
-	'''
+	
 
 if __name__ == "__main__":
 	main()

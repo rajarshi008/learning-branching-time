@@ -38,7 +38,12 @@ def merge_kripkes(kripke1, kripke2, extra_transitions=10):
 def generate_random_kripke(max_in_deg, max_out_deg, num_states, transition_density, propositions):
 	'''Generates a random Kripke structure with given parameters'''
 	rand_kripke = Kripke(init_states=set(), transitions={}, labels={}, propositions=propositions)
-	rand_kripke.add_init_state()
+	
+	if num_states==1:
+		rand_kripke.add_init_state(self_loop_prob=1)
+	else:
+		rand_kripke.add_init_state()
+	
 	for _ in range(1, num_states):
 		rand_kripke.add_random_state(in_deg=max_in_deg, out_deg=max_out_deg)
 	if transition_density == 'low':
@@ -245,6 +250,8 @@ class ConcurrentGameStructure:
 		self.states = set(self.labels.keys())
 		self.init_states = init_states
 		self.propositions = propositions
+		self.state_player = {}
+		self.turn_based = False
 		self.player2pos = {player: i for i, player in enumerate(self.players)}
 
 	def calc_stats(self):
@@ -291,11 +298,20 @@ class ConcurrentGameStructure:
 		#Labels
 		labels_dict_str = labels_str.strip().split('\n')
 		for label_str in labels_dict_str:
-			state, prop_str = label_str.strip().split(':')
+			
+			label_split = label_str.strip().split(':')
+			if len(label_split) == 2:
+				state, prop_str = label_split
+			elif len(label_split) == 3:
+				state, prop_str, player = label_split
+				self.state_player[int(state)] = int(player)
+				self.turn_based = True
 			if prop_str == '':
 				self.labels[int(state)] = set()
 			else:
 				self.labels[int(state)] = set(prop_str.split(','))
+
+
 		self.states = set(self.labels.keys())
 
 		#Transitions

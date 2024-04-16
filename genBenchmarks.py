@@ -109,8 +109,8 @@ class SampleGenerator:
 			old_sample_data = self.sample_stats[filename]
 			for (i,j) in num_models:
 				
-				new_filename = filename.replace("nm:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
-				print(new_filename)
+				new_filename = filename.replace("nm:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nm:"+str(i).zfill(3))
+				
 				new_positive = s.positive[:i]
 				new_negative = s.negative[:j]
 
@@ -132,7 +132,6 @@ class SampleGenerator:
 
 
 	def generateCGS(self, gen_from_large_sample=False):
-		print('This')
 		if gen_from_large_sample:
 			num_models = [self.max_size]
 		else:	
@@ -183,7 +182,6 @@ class SampleGenerator:
 
 
 	def generateSmallBenchmarksCGS(self, generated_files, num_models):
-		print(generated_files, num_models)
 		for filename in generated_files:
 			
 			s = SampleCGS(positive=[],negative=[],propositions=[])
@@ -191,7 +189,7 @@ class SampleGenerator:
 			old_sample_data = self.sample_stats[filename]
 			for (i,j) in num_models:
 				
-				new_filename = filename.replace("nm:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nw:"+str(i).zfill(3))
+				new_filename = filename.replace("nm:"+str((self.max_size[0]+self.max_size[1])//2).zfill(3), "nm:"+str(i).zfill(3))
 				print(new_filename)
 				new_positive = s.positive[:i]
 				new_negative = s.negative[:j]
@@ -229,11 +227,11 @@ def tupleList(s):
 def main():
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas_atl.txt')
-	parser.add_argument('--num_models', '-s', dest='num_models', default=[(5,5),(25,25),(50,50)], nargs='+', type=tupleList)
+	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas.txt')
+	parser.add_argument('--num_models', '-s', dest='num_models', default=[(10,10),(20,20),(30,30),(40,40),(50,50),(60,60)], nargs='+', type=tupleList)
 	parser.add_argument('--output_folder', '-o', dest='output_folder', default = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-	parser.add_argument('--size_models', '-m', dest='size_models', default=[(5,15),(15,25),(25,35)], nargs='+', type=tupleList)
-	parser.add_argument('--cgs', '-c', dest='cgs', default=True, action='store_true', help='Generate benchmarks for Concurrent Game Structures')
+	parser.add_argument('--size_models', '-m', dest='size_models', default=[(1,10),(11,20),(21,30),(31,40)], nargs='+', type=tupleList)
+	parser.add_argument('--cgs', '-c', dest='cgs', default=False, action='store_true', help='Generate benchmarks for Concurrent Game Structures')
 	#Structure sizes
 
 	args,unknown = parser.parse_known_args()
