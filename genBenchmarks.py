@@ -169,7 +169,7 @@ class SampleGenerator:
 						generated_files.append(sample_file)
 						sample = SampleCGS(positive=[], negative=[], propositions=propositions)
 						deg = math.ceil(math.log(size[1],2)-1)
-						sample.generate_random(sample_file, num[0], num[1], size, deg, formula, players, 10000, write=False)
+						sample.generate_random(sample_file, num[0], num[1], size, deg, formula, players, 100000, write=False)
 						sample.write(sample_file)
 						ver =  consistency_checker(sample, formula, model_type='cgs', formula_type='atl')
 						assert ver
@@ -227,10 +227,10 @@ def tupleList(s):
 def main():
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas.txt')
-	parser.add_argument('--num_models', '-s', dest='num_models', default=[(10,10),(20,20),(30,30),(40,40),(50,50),(60,60)], nargs='+', type=tupleList)
+	parser.add_argument('--formula_file', '-f', dest='formula_file', default = 'formulas_atl.txt')
+	parser.add_argument('--num_models', '-s', dest='num_models', default=[(5,5),(10,10),(15,15),(20,20),(25,25),(30,30)], nargs='+', type=tupleList)
 	parser.add_argument('--output_folder', '-o', dest='output_folder', default = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-	parser.add_argument('--size_models', '-m', dest='size_models', default=[(1,10),(11,20),(21,30),(31,40)], nargs='+', type=tupleList)
+	parser.add_argument('--size_models', '-m', dest='size_models', default=[(1,5),(6,10),(11,15),(16,20),(21,25)], nargs='+', type=tupleList)
 	parser.add_argument('--cgs', '-c', dest='cgs', default=False, action='store_true', help='Generate benchmarks for Concurrent Game Structures')
 	#Structure sizes
 

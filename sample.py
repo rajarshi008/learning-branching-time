@@ -346,6 +346,7 @@ class SampleCGS(Sample):
 					 formula=None,
 					 players=[0,1],
 					 total_trials=10000,
+					 turn_based=True,
 					 write=True
 					 ):
 		'''
@@ -369,7 +370,7 @@ class SampleCGS(Sample):
 			try:
 				rand_cgs = generate_random_cgs(max_in_deg=max_deg, max_out_deg=max_deg, num_states=num_states,\
 								transition_density=transition_density, propositions=self.propositions, \
-								players=players, turn_based=True)
+								players=players, turn_based=turn_based)
 			except:
 				continue
 			checker = ModelChecker(model=rand_cgs, formula=formula, model_type='cgs', formula_type='atl')

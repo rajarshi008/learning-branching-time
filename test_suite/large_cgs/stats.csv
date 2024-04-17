@@ -1,0 +1,211 @@
+File,Formula,Positive,Negative,Size Lower,Size Upper,Verification
+test_suite/large_cgs/CGS/f:01-nm:030-sm:003.sp,<1>X(p),30,30,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:030-sm:008.sp,<1>X(p),30,30,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:030-sm:013.sp,<1>X(p),30,30,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:030-sm:018.sp,<1>X(p),30,30,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:030-sm:023.sp,<1>X(p),30,30,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:030-sm:003.sp,<0>F(p),30,30,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:030-sm:008.sp,<0>F(p),30,30,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:030-sm:013.sp,<0>F(p),30,30,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:030-sm:018.sp,<0>F(p),30,30,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:030-sm:023.sp,<0>F(p),30,30,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:030-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),30,30,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:030-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),30,30,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:030-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),30,30,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:030-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),30,30,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:030-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),30,30,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:030-sm:003.sp,<>G((p -> <1>G(p))),30,30,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:030-sm:008.sp,<>G((p -> <1>G(p))),30,30,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:030-sm:013.sp,<>G((p -> <1>G(p))),30,30,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:030-sm:018.sp,<>G((p -> <1>G(p))),30,30,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:030-sm:023.sp,<>G((p -> <1>G(p))),30,30,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:030-sm:003.sp,"<>G((p -> <0,1>F(q)))",30,30,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:030-sm:008.sp,"<>G((p -> <0,1>F(q)))",30,30,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:030-sm:013.sp,"<>G((p -> <0,1>F(q)))",30,30,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:030-sm:018.sp,"<>G((p -> <0,1>F(q)))",30,30,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:030-sm:023.sp,"<>G((p -> <0,1>F(q)))",30,30,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:030-sm:003.sp,<>G((p -> <1>X(q))),30,30,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:030-sm:008.sp,<>G((p -> <1>X(q))),30,30,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:030-sm:013.sp,<>G((p -> <1>X(q))),30,30,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:030-sm:018.sp,<>G((p -> <1>X(q))),30,30,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:030-sm:023.sp,<>G((p -> <1>X(q))),30,30,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:030-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),30,30,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:030-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),30,30,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:030-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),30,30,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:030-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),30,30,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:030-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),30,30,21,25,True
+test_suite/large_cgs/CGS/f:01-nm:005-sm:003.sp,<1>X(p),5,5,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:010-sm:003.sp,<1>X(p),10,10,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:015-sm:003.sp,<1>X(p),15,15,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:020-sm:003.sp,<1>X(p),20,20,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:025-sm:003.sp,<1>X(p),25,25,1,5,True
+test_suite/large_cgs/CGS/f:01-nm:005-sm:008.sp,<1>X(p),5,5,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:010-sm:008.sp,<1>X(p),10,10,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:015-sm:008.sp,<1>X(p),15,15,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:020-sm:008.sp,<1>X(p),20,20,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:025-sm:008.sp,<1>X(p),25,25,6,10,True
+test_suite/large_cgs/CGS/f:01-nm:005-sm:013.sp,<1>X(p),5,5,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:010-sm:013.sp,<1>X(p),10,10,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:015-sm:013.sp,<1>X(p),15,15,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:020-sm:013.sp,<1>X(p),20,20,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:025-sm:013.sp,<1>X(p),25,25,11,15,True
+test_suite/large_cgs/CGS/f:01-nm:005-sm:018.sp,<1>X(p),5,5,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:010-sm:018.sp,<1>X(p),10,10,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:015-sm:018.sp,<1>X(p),15,15,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:020-sm:018.sp,<1>X(p),20,20,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:025-sm:018.sp,<1>X(p),25,25,16,20,True
+test_suite/large_cgs/CGS/f:01-nm:005-sm:023.sp,<1>X(p),5,5,21,25,True
+test_suite/large_cgs/CGS/f:01-nm:010-sm:023.sp,<1>X(p),10,10,21,25,True
+test_suite/large_cgs/CGS/f:01-nm:015-sm:023.sp,<1>X(p),15,15,21,25,True
+test_suite/large_cgs/CGS/f:01-nm:020-sm:023.sp,<1>X(p),20,20,21,25,True
+test_suite/large_cgs/CGS/f:01-nm:025-sm:023.sp,<1>X(p),25,25,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:005-sm:003.sp,<0>F(p),5,5,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:010-sm:003.sp,<0>F(p),10,10,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:015-sm:003.sp,<0>F(p),15,15,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:020-sm:003.sp,<0>F(p),20,20,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:025-sm:003.sp,<0>F(p),25,25,1,5,True
+test_suite/large_cgs/CGS/f:02-nm:005-sm:008.sp,<0>F(p),5,5,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:010-sm:008.sp,<0>F(p),10,10,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:015-sm:008.sp,<0>F(p),15,15,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:020-sm:008.sp,<0>F(p),20,20,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:025-sm:008.sp,<0>F(p),25,25,6,10,True
+test_suite/large_cgs/CGS/f:02-nm:005-sm:013.sp,<0>F(p),5,5,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:010-sm:013.sp,<0>F(p),10,10,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:015-sm:013.sp,<0>F(p),15,15,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:020-sm:013.sp,<0>F(p),20,20,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:025-sm:013.sp,<0>F(p),25,25,11,15,True
+test_suite/large_cgs/CGS/f:02-nm:005-sm:018.sp,<0>F(p),5,5,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:010-sm:018.sp,<0>F(p),10,10,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:015-sm:018.sp,<0>F(p),15,15,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:020-sm:018.sp,<0>F(p),20,20,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:025-sm:018.sp,<0>F(p),25,25,16,20,True
+test_suite/large_cgs/CGS/f:02-nm:005-sm:023.sp,<0>F(p),5,5,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:010-sm:023.sp,<0>F(p),10,10,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:015-sm:023.sp,<0>F(p),15,15,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:020-sm:023.sp,<0>F(p),20,20,21,25,True
+test_suite/large_cgs/CGS/f:02-nm:025-sm:023.sp,<0>F(p),25,25,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:005-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),5,5,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:010-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),10,10,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:015-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),15,15,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:020-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),20,20,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:025-sm:003.sp,<>G(((p & (! q)) -> <1>G(p))),25,25,1,5,True
+test_suite/large_cgs/CGS/f:03-nm:005-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),5,5,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:010-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),10,10,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:015-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),15,15,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:020-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),20,20,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:025-sm:008.sp,<>G(((p & (! q)) -> <1>G(p))),25,25,6,10,True
+test_suite/large_cgs/CGS/f:03-nm:005-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),5,5,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:010-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),10,10,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:015-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),15,15,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:020-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),20,20,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:025-sm:013.sp,<>G(((p & (! q)) -> <1>G(p))),25,25,11,15,True
+test_suite/large_cgs/CGS/f:03-nm:005-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),5,5,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:010-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),10,10,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:015-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),15,15,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:020-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),20,20,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:025-sm:018.sp,<>G(((p & (! q)) -> <1>G(p))),25,25,16,20,True
+test_suite/large_cgs/CGS/f:03-nm:005-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),5,5,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:010-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),10,10,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:015-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),15,15,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:020-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),20,20,21,25,True
+test_suite/large_cgs/CGS/f:03-nm:025-sm:023.sp,<>G(((p & (! q)) -> <1>G(p))),25,25,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:005-sm:003.sp,<>G((p -> <1>G(p))),5,5,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:010-sm:003.sp,<>G((p -> <1>G(p))),10,10,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:015-sm:003.sp,<>G((p -> <1>G(p))),15,15,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:020-sm:003.sp,<>G((p -> <1>G(p))),20,20,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:025-sm:003.sp,<>G((p -> <1>G(p))),25,25,1,5,True
+test_suite/large_cgs/CGS/f:04-nm:005-sm:008.sp,<>G((p -> <1>G(p))),5,5,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:010-sm:008.sp,<>G((p -> <1>G(p))),10,10,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:015-sm:008.sp,<>G((p -> <1>G(p))),15,15,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:020-sm:008.sp,<>G((p -> <1>G(p))),20,20,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:025-sm:008.sp,<>G((p -> <1>G(p))),25,25,6,10,True
+test_suite/large_cgs/CGS/f:04-nm:005-sm:013.sp,<>G((p -> <1>G(p))),5,5,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:010-sm:013.sp,<>G((p -> <1>G(p))),10,10,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:015-sm:013.sp,<>G((p -> <1>G(p))),15,15,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:020-sm:013.sp,<>G((p -> <1>G(p))),20,20,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:025-sm:013.sp,<>G((p -> <1>G(p))),25,25,11,15,True
+test_suite/large_cgs/CGS/f:04-nm:005-sm:018.sp,<>G((p -> <1>G(p))),5,5,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:010-sm:018.sp,<>G((p -> <1>G(p))),10,10,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:015-sm:018.sp,<>G((p -> <1>G(p))),15,15,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:020-sm:018.sp,<>G((p -> <1>G(p))),20,20,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:025-sm:018.sp,<>G((p -> <1>G(p))),25,25,16,20,True
+test_suite/large_cgs/CGS/f:04-nm:005-sm:023.sp,<>G((p -> <1>G(p))),5,5,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:010-sm:023.sp,<>G((p -> <1>G(p))),10,10,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:015-sm:023.sp,<>G((p -> <1>G(p))),15,15,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:020-sm:023.sp,<>G((p -> <1>G(p))),20,20,21,25,True
+test_suite/large_cgs/CGS/f:04-nm:025-sm:023.sp,<>G((p -> <1>G(p))),25,25,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:005-sm:003.sp,"<>G((p -> <0,1>F(q)))",5,5,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:010-sm:003.sp,"<>G((p -> <0,1>F(q)))",10,10,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:015-sm:003.sp,"<>G((p -> <0,1>F(q)))",15,15,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:020-sm:003.sp,"<>G((p -> <0,1>F(q)))",20,20,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:025-sm:003.sp,"<>G((p -> <0,1>F(q)))",25,25,1,5,True
+test_suite/large_cgs/CGS/f:05-nm:005-sm:008.sp,"<>G((p -> <0,1>F(q)))",5,5,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:010-sm:008.sp,"<>G((p -> <0,1>F(q)))",10,10,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:015-sm:008.sp,"<>G((p -> <0,1>F(q)))",15,15,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:020-sm:008.sp,"<>G((p -> <0,1>F(q)))",20,20,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:025-sm:008.sp,"<>G((p -> <0,1>F(q)))",25,25,6,10,True
+test_suite/large_cgs/CGS/f:05-nm:005-sm:013.sp,"<>G((p -> <0,1>F(q)))",5,5,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:010-sm:013.sp,"<>G((p -> <0,1>F(q)))",10,10,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:015-sm:013.sp,"<>G((p -> <0,1>F(q)))",15,15,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:020-sm:013.sp,"<>G((p -> <0,1>F(q)))",20,20,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:025-sm:013.sp,"<>G((p -> <0,1>F(q)))",25,25,11,15,True
+test_suite/large_cgs/CGS/f:05-nm:005-sm:018.sp,"<>G((p -> <0,1>F(q)))",5,5,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:010-sm:018.sp,"<>G((p -> <0,1>F(q)))",10,10,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:015-sm:018.sp,"<>G((p -> <0,1>F(q)))",15,15,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:020-sm:018.sp,"<>G((p -> <0,1>F(q)))",20,20,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:025-sm:018.sp,"<>G((p -> <0,1>F(q)))",25,25,16,20,True
+test_suite/large_cgs/CGS/f:05-nm:005-sm:023.sp,"<>G((p -> <0,1>F(q)))",5,5,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:010-sm:023.sp,"<>G((p -> <0,1>F(q)))",10,10,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:015-sm:023.sp,"<>G((p -> <0,1>F(q)))",15,15,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:020-sm:023.sp,"<>G((p -> <0,1>F(q)))",20,20,21,25,True
+test_suite/large_cgs/CGS/f:05-nm:025-sm:023.sp,"<>G((p -> <0,1>F(q)))",25,25,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:005-sm:003.sp,<>G((p -> <1>X(q))),5,5,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:010-sm:003.sp,<>G((p -> <1>X(q))),10,10,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:015-sm:003.sp,<>G((p -> <1>X(q))),15,15,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:020-sm:003.sp,<>G((p -> <1>X(q))),20,20,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:025-sm:003.sp,<>G((p -> <1>X(q))),25,25,1,5,True
+test_suite/large_cgs/CGS/f:06-nm:005-sm:008.sp,<>G((p -> <1>X(q))),5,5,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:010-sm:008.sp,<>G((p -> <1>X(q))),10,10,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:015-sm:008.sp,<>G((p -> <1>X(q))),15,15,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:020-sm:008.sp,<>G((p -> <1>X(q))),20,20,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:025-sm:008.sp,<>G((p -> <1>X(q))),25,25,6,10,True
+test_suite/large_cgs/CGS/f:06-nm:005-sm:013.sp,<>G((p -> <1>X(q))),5,5,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:010-sm:013.sp,<>G((p -> <1>X(q))),10,10,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:015-sm:013.sp,<>G((p -> <1>X(q))),15,15,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:020-sm:013.sp,<>G((p -> <1>X(q))),20,20,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:025-sm:013.sp,<>G((p -> <1>X(q))),25,25,11,15,True
+test_suite/large_cgs/CGS/f:06-nm:005-sm:018.sp,<>G((p -> <1>X(q))),5,5,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:010-sm:018.sp,<>G((p -> <1>X(q))),10,10,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:015-sm:018.sp,<>G((p -> <1>X(q))),15,15,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:020-sm:018.sp,<>G((p -> <1>X(q))),20,20,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:025-sm:018.sp,<>G((p -> <1>X(q))),25,25,16,20,True
+test_suite/large_cgs/CGS/f:06-nm:005-sm:023.sp,<>G((p -> <1>X(q))),5,5,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:010-sm:023.sp,<>G((p -> <1>X(q))),10,10,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:015-sm:023.sp,<>G((p -> <1>X(q))),15,15,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:020-sm:023.sp,<>G((p -> <1>X(q))),20,20,21,25,True
+test_suite/large_cgs/CGS/f:06-nm:025-sm:023.sp,<>G((p -> <1>X(q))),25,25,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:005-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),5,5,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:010-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10,10,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:015-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),15,15,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:020-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),20,20,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:025-sm:003.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25,25,1,5,True
+test_suite/large_cgs/CGS/f:07-nm:005-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),5,5,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:010-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10,10,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:015-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),15,15,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:020-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),20,20,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:025-sm:008.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25,25,6,10,True
+test_suite/large_cgs/CGS/f:07-nm:005-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),5,5,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:010-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10,10,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:015-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),15,15,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:020-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),20,20,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:025-sm:013.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25,25,11,15,True
+test_suite/large_cgs/CGS/f:07-nm:005-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),5,5,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:010-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10,10,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:015-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),15,15,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:020-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),20,20,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:025-sm:018.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25,25,16,20,True
+test_suite/large_cgs/CGS/f:07-nm:005-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),5,5,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:010-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10,10,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:015-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),15,15,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:020-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),20,20,21,25,True
+test_suite/large_cgs/CGS/f:07-nm:025-sm:023.sp,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25,25,21,25,True

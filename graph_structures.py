@@ -43,7 +43,7 @@ def generate_random_kripke(max_in_deg, max_out_deg, num_states, transition_densi
 		rand_kripke.add_init_state(self_loop_prob=1)
 	else:
 		rand_kripke.add_init_state()
-	
+
 	for _ in range(1, num_states):
 		rand_kripke.add_random_state(in_deg=max_in_deg, out_deg=max_out_deg)
 	if transition_density == 'low':
@@ -53,10 +53,15 @@ def generate_random_kripke(max_in_deg, max_out_deg, num_states, transition_densi
 def generate_random_cgs(max_in_deg, max_out_deg, num_states, transition_density, propositions, players, turn_based):
 	'''Generates a random Concurrent Game structure with given parameters'''
 	#print(max_in_deg, max_out_deg, num_states, transition_density, propositions, players, turn_based)
-	rand_cgs = ConcurrentGameStructure(init_states=set(), transitions={}, labels={}, players=set(players), propositions=propositions)
-	rand_cgs.add_init_state()
+	rand_cgs = ConcurrentGameStructure(init_states=set(), transitions={}, labels={}, players=set(players),\
+										 propositions=propositions, turn_based=turn_based)
+	if num_states==1:
+		rand_cgs.add_init_state(self_loop_prob=1)
+	else:
+		rand_cgs.add_init_state()
 	for _ in range(1, num_states):
-		rand_cgs.add_random_state(in_deg=max_in_deg, out_deg=max_out_deg, transition_density=transition_density, turn_based=turn_based)
+		rand_cgs.add_random_state(in_deg=max_in_deg, out_deg=max_out_deg, \
+							transition_density=transition_density, turn_based=turn_based)
 	return rand_cgs
 
 
@@ -243,7 +248,7 @@ class Kripke:
 
 class ConcurrentGameStructure:
 	
-	def __init__(self, init_states=set(), transitions={}, labels={}, players=set(), propositions=set()):
+	def __init__(self, init_states=set(), transitions={}, labels={}, players=set(), propositions=set(), turn_based=False):
 		self.players = players # ordered list
 		self.transitions = transitions
 		self.labels = labels
@@ -251,7 +256,7 @@ class ConcurrentGameStructure:
 		self.init_states = init_states
 		self.propositions = propositions
 		self.state_player = {}
-		self.turn_based = False
+		self.turn_based = turn_based
 		self.player2pos = {player: i for i, player in enumerate(self.players)}
 
 	def calc_stats(self):
@@ -425,8 +430,12 @@ class ConcurrentGameStructure:
 		string = ''
 		string += ','.join([str(state) for state in self.init_states]) + '\n'
 		string += '---\n'
-		for state in self.states:
-			string += str(state) + ':' + ','.join(self.labels[state]) + '\n'
+		if self.turn_based:
+			for state in self.states:
+				string += str(state) + ':' + ','.join(self.labels[state]) + ':' + str(self.state_player[state]) + '\n'
+		else:
+			for state in self.states:
+				string += str(state) + ':' + ','.join(self.labels[state]) + '\n'
 		string += '---\n'
 		for state in self.states:
 			succ_states = self.transitions[state].values()

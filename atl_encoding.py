@@ -12,11 +12,12 @@ class ATLSATEncoding:
 		self.propositions = propositions
 		self.operators = operators
 
-		self.unary_operators = atl_unary
-		self.binary_operators = atl_binary
-		self.temporal_operators = atl_temporal
+		self.unary_operators = [op for op in operators if op in atl_unary]
+		self.binary_operators = [op for op in operators if op in atl_binary]
+		self.temporal_operators = [op for op in operators if op in atl_temporal]
 		self.operators_and_propositions = self.operators + self.propositions
-		print(self.operators_and_propositions)
+		self.turn_based = False
+
 		# initializing the variables
 		self.x = {}
 		self.r = {}
@@ -266,7 +267,6 @@ class ATLSATEncoding:
 													))
 
 
-	
 	def preConstraint(self, i, j, cgs, cgs_id, state):
 
 		all_transitions = cgs.actions[state]
@@ -295,9 +295,9 @@ class ATLSATEncoding:
 
 		if self.turn_based:
 			state_player = cgs.state_player[state]	
-			result = And(Implies(self.A[(i,state_player)],Or([self.y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
+			result = And(Implies(self.A[(i,state_player)],Or([self.aux_y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
 								for trans in all_transitions])),
-						Implies(Not(self.A[(i,state_player)]),And([self.y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
+						Implies(Not(self.A[(i,state_player)]),And([self.aux_y[(i, cgs_id, cgs.transitions[state][trans], dist)] \
 								for trans in all_transitions])))
 		else:
 			result = Or([\
