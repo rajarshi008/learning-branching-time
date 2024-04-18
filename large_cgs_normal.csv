@@ -1,0 +1,169 @@
+Learned Formula Size,Sample size,Encoding Time,Solving Time,Formula Type,Learned Formula,Verification,Sample,Solver,Model Type,Size Bound,Original Formula,Total Time,Players,Propositions
+2,30,81.68,0.8,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:015-sm:018.sp,msat,cgs,15,<0>F(p),82.48,2,2
+4,60,2657.0,31.7,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:030-sm:018.sp,msat,cgs,15,<>G((p -> <1>G(p))),2688.7,2,2
+2,50,2.18,0.03,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:025-sm:003.sp,msat,cgs,15,<1>X(p),2.21,2,2
+2,60,2.86,0.03,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:030-sm:003.sp,msat,cgs,15,<1>X(p),2.89,2,2
+3,30,2.49,0.05,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:015-sm:003.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),2.53,2,3
+4,50,1900.13,31.59,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:025-sm:018.sp,msat,cgs,15,<>G((p -> <1>G(p))),1931.72,2,2
+5,40,199.89,17.98,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:020-sm:008.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",217.87,2,2
+5,10,14.64,2.01,atl,"<>G((<1>X(p) -> <0,1>G(<1>X(p))))",True,test_suite/large_cgs/CGS/f:03-nm:005-sm:008.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),16.65,2,2
+5,20,205.68,66.56,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:010-sm:013.sp,msat,cgs,15,<>G((p -> <1>X(q))),272.25,2,2
+2,40,290.79,1.89,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:020-sm:023.sp,msat,cgs,15,<1>X(p),292.69,2,2
+3,6,24.72,0.59,atl,"(! <0,1>F(p))",True,test_suite/large_cgs/CGS/f:07-nm:005-sm:023.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),25.31,2,3
+3,40,940.78,5.69,atl,"<>G(<0,1>F(q))",True,test_suite/large_cgs/CGS/f:05-nm:020-sm:023.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",946.47,2,2
+5,10,309.38,128.87,atl,<>G((<0>(p U q) -> q)),True,test_suite/large_cgs/CGS/f:03-nm:005-sm:023.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),438.25,2,2
+2,20,11.87,0.19,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:010-sm:013.sp,msat,cgs,15,<0>F(p),12.05,2,2
+2,40,14.05,0.14,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:020-sm:008.sp,msat,cgs,15,<1>X(p),14.19,2,2
+3,10,2.9,0.08,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:005-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),2.98,2,3
+5,60,38.88,1.08,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:030-sm:003.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",39.96,2,2
+6,30,22.43,9.69,atl,<>G(((p -> <1>G(p)) | q)),True,test_suite/large_cgs/CGS/f:03-nm:015-sm:003.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),32.12,2,2
+3,20,12.07,0.22,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:010-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),12.29,2,3
+2,10,2.98,0.08,atl,<0>X(p),True,test_suite/large_cgs/CGS/f:02-nm:005-sm:013.sp,msat,cgs,15,<0>F(p),3.06,2,2
+4,40,432.2,10.21,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:020-sm:013.sp,msat,cgs,15,<>G((p -> <1>G(p))),442.41,2,2
+6,20,1859.93,690.98,atl,<>G((p -> (<1>X(p) | q))),True,test_suite/large_cgs/CGS/f:03-nm:010-sm:023.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),2550.91,2,2
+2,50,441.4,2.34,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:025-sm:023.sp,msat,cgs,15,<0>F(p),443.75,2,2
+5,50,302.53,13.56,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:025-sm:008.sp,msat,cgs,15,<>G((p -> <1>X(q))),316.09,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:030-sm:013.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+5,30,483.47,19.02,atl,<>G((<>G(p) -> q)),True,test_suite/large_cgs/CGS/f:05-nm:015-sm:013.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",502.49,2,2
+4,20,3.89,0.12,atl,<>G((p -> <>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:010-sm:003.sp,msat,cgs,15,<>G((p -> <1>G(p))),4.01,2,2
+5,40,2048.07,341.9,atl,<>G((p -> <0>X(r))),True,test_suite/large_cgs/CGS/f:07-nm:020-sm:018.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),2389.96,2,3
+2,10,9.14,0.2,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:005-sm:018.sp,msat,cgs,15,<1>X(p),9.34,2,2
+2,20,34.82,0.47,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:010-sm:018.sp,msat,cgs,15,<1>X(p),35.3,2,2
+4,10,1.19,0.05,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:005-sm:003.sp,msat,cgs,15,<>G((p -> <1>G(p))),1.24,2,2
+2,40,1.41,0.02,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:020-sm:003.sp,msat,cgs,15,<0>F(p),1.44,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:025-sm:013.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:06-nm:030-sm:023.sp,msat,cgs,15,<>G((p -> <1>X(q))),0,2,2
+4,30,78.43,2.61,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:015-sm:008.sp,msat,cgs,15,<>G((p -> <1>G(p))),81.04,2,2
+2,60,31.35,0.21,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:030-sm:008.sp,msat,cgs,15,<0>F(p),31.57,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:07-nm:025-sm:013.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0,2,3
+,40,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:020-sm:018.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+4,10,66.29,8.49,atl,"<0,1>(p U (! <0,1>X(p)))",True,test_suite/large_cgs/CGS/f:05-nm:005-sm:018.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",74.78,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:07-nm:030-sm:013.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0,2,3
+2,30,29.68,0.33,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:015-sm:013.sp,msat,cgs,15,<1>X(p),30.01,2,2
+2,50,21.32,0.17,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:025-sm:008.sp,msat,cgs,15,<0>F(p),21.49,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:06-nm:025-sm:023.sp,msat,cgs,15,<>G((p -> <1>X(q))),0,2,2
+2,60,579.01,2.25,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:030-sm:023.sp,msat,cgs,15,<1>X(p),581.26,2,2
+3,10,0.36,0.02,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:005-sm:003.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0.37,2,3
+2,40,1.54,0.02,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:020-sm:003.sp,msat,cgs,15,<1>X(p),1.56,2,2
+2,20,37.54,0.46,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:010-sm:018.sp,msat,cgs,15,<0>F(p),38.0,2,2
+4,40,1206.42,14.31,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:020-sm:018.sp,msat,cgs,15,<>G((p -> <1>G(p))),1220.73,2,2
+2,10,7.9,0.2,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:005-sm:018.sp,msat,cgs,15,<0>F(p),8.1,2,2
+3,20,1.03,0.03,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:010-sm:003.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),1.06,2,3
+2,50,446.09,2.19,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:025-sm:023.sp,msat,cgs,15,<1>X(p),448.27,2,2
+5,30,475.57,27.32,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:015-sm:013.sp,msat,cgs,15,<>G((p -> <1>X(q))),502.9,2,2
+5,50,325.95,38.02,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:025-sm:008.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",363.98,2,2
+2,50,21.03,0.18,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:025-sm:008.sp,msat,cgs,15,<1>X(p),21.21,2,2
+4,60,952.11,11.57,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:030-sm:013.sp,msat,cgs,15,<>G((p -> <1>G(p))),963.68,2,2
+2,30,24.66,0.24,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:015-sm:013.sp,msat,cgs,15,<0>F(p),24.9,2,2
+3,50,1528.79,7.04,atl,"<>G(<0,1>F(q))",True,test_suite/large_cgs/CGS/f:05-nm:025-sm:023.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",1535.83,2,2
+6,20,8.54,1.92,atl,<>G(((p -> <>X(p)) | q)),True,test_suite/large_cgs/CGS/f:03-nm:010-sm:003.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),10.47,2,2
+5,10,131.63,47.8,atl,"<>G((<0,1>G(p) -> <1>G(p)))",True,test_suite/large_cgs/CGS/f:06-nm:005-sm:018.sp,msat,cgs,15,<>G((p -> <1>X(q))),179.44,2,2
+5,20,497.89,102.22,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:010-sm:018.sp,msat,cgs,15,<>G((p -> <1>X(q))),600.12,2,2
+5,40,17.73,0.38,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:020-sm:003.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",18.11,2,2
+,30,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:015-sm:023.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:05-nm:030-sm:023.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",0,2,2
+4,50,636.83,11.81,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:025-sm:013.sp,msat,cgs,15,<>G((p -> <1>G(p))),648.64,2,2
+4,30,72.67,1.0,atl,<>X(<1>G((! p))),True,test_suite/large_cgs/CGS/f:07-nm:015-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),73.67,2,3
+2,60,29.51,0.22,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:030-sm:008.sp,msat,cgs,15,<1>X(p),29.72,2,2
+4,20,111.32,2.76,atl,"<>G(<0,1>F((! p)))",True,test_suite/large_cgs/CGS/f:05-nm:010-sm:013.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",114.08,2,2
+5,40,192.34,11.41,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:020-sm:008.sp,msat,cgs,15,<>G((p -> <1>X(q))),203.75,2,2
+2,40,292.11,1.9,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:020-sm:023.sp,msat,cgs,15,<0>F(p),294.01,2,2
+4,10,148.63,13.84,atl,<>X((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:005-sm:023.sp,msat,cgs,15,<>G((p -> <1>G(p))),162.47,2,2
+,48,0,0,atl,,,test_suite/large_cgs/CGS/f:07-nm:025-sm:018.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0,2,3
+2,60,3.0,0.03,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:030-sm:003.sp,msat,cgs,15,<0>F(p),3.04,2,2
+4,30,8.5,0.15,atl,<>G((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:015-sm:003.sp,msat,cgs,15,<>G((p -> <1>G(p))),8.65,2,2
+2,50,2.23,0.03,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:025-sm:003.sp,msat,cgs,15,<0>F(p),2.26,2,2
+2,30,74.18,0.76,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:015-sm:018.sp,msat,cgs,15,<1>X(p),74.94,2,2
+,53,0,0,atl,,,test_suite/large_cgs/CGS/f:07-nm:030-sm:018.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0,2,3
+4,20,569.0,23.8,atl,"<>G((p -> <0,1>X(p)))",True,test_suite/large_cgs/CGS/f:04-nm:010-sm:023.sp,msat,cgs,15,<>G((p -> <1>G(p))),592.8,2,2
+2,10,3.1,0.09,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:005-sm:013.sp,msat,cgs,15,<1>X(p),3.19,2,2
+6,40,1367.53,1027.24,atl,<>G((<1>X(<0>F(p)) -> (! p))),True,test_suite/large_cgs/CGS/f:07-nm:020-sm:013.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),2394.77,2,3
+4,20,36.5,1.59,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:010-sm:008.sp,msat,cgs,15,<>G((p -> <1>G(p))),38.09,2,2
+5,60,54.04,1.29,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:030-sm:003.sp,msat,cgs,15,<>G((p -> <1>X(q))),55.33,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:025-sm:018.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+,40,0,0,atl,,,test_suite/large_cgs/CGS/f:06-nm:020-sm:023.sp,msat,cgs,15,<>G((p -> <1>X(q))),0,2,2
+2,40,14.14,0.14,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:020-sm:008.sp,msat,cgs,15,<0>F(p),14.28,2,2
+4,10,8.69,0.75,atl,"<1>G((<0,1>X(p) -> p))",True,test_suite/large_cgs/CGS/f:04-nm:005-sm:008.sp,msat,cgs,15,<>G((p -> <1>G(p))),9.44,2,2
+2,20,14.2,0.19,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:010-sm:013.sp,msat,cgs,15,<1>X(p),14.39,2,2
+6,40,40.28,7.57,atl,<>G(((p -> q) | <1>G(p))),True,test_suite/large_cgs/CGS/f:03-nm:020-sm:003.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),47.85,2,2
+4,10,1.1,0.06,atl,(<1>F(p) -> q),True,test_suite/large_cgs/CGS/f:05-nm:005-sm:003.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",1.17,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:07-nm:030-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),0,2,3
+6,50,625.63,306.59,atl,"(! <0,1>((<0>(p U <0,1>X(p)) -> <0,1>X(p)) U <0,1>X(p)))",True,test_suite/large_cgs/CGS/f:07-nm:025-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),932.22,2,3
+4,30,245.57,3.55,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:015-sm:013.sp,msat,cgs,15,<>G((p -> <1>G(p))),249.13,2,2
+2,60,97.71,0.52,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:030-sm:013.sp,msat,cgs,15,<0>F(p),98.23,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:025-sm:023.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+5,20,5.31,0.24,atl,<>X((<1>X(p) -> q)),True,test_suite/large_cgs/CGS/f:05-nm:010-sm:003.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",5.56,2,2
+5,40,2149.11,272.54,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:020-sm:018.sp,msat,cgs,15,<>G((p -> <1>X(q))),2421.65,2,2
+4,10,68.86,3.73,atl,"<>G((p -> <0,1>G(p)))",True,test_suite/large_cgs/CGS/f:04-nm:005-sm:018.sp,msat,cgs,15,<>G((p -> <1>G(p))),72.59,2,2
+2,40,139.62,0.92,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:020-sm:018.sp,msat,cgs,15,<0>F(p),140.53,2,2
+2,20,0.58,0.01,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:010-sm:003.sp,msat,cgs,15,<1>X(p),0.6,2,2
+3,26,414.38,4.47,atl,"(! <0,1>F(p))",True,test_suite/large_cgs/CGS/f:07-nm:025-sm:023.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),418.85,2,3
+5,60,1937.59,129.99,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:030-sm:013.sp,msat,cgs,15,<>G((p -> <1>X(q))),2067.58,2,2
+6,50,552.32,122.65,atl,<>G((<1>G(p) | (p -> q))),True,test_suite/large_cgs/CGS/f:03-nm:025-sm:008.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),674.98,2,2
+6,60,802.6,541.76,atl,<>G((q | (p -> <1>G(p)))),True,test_suite/large_cgs/CGS/f:03-nm:030-sm:008.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),1344.36,2,2
+5,30,116.82,13.84,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:015-sm:008.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",130.66,2,2
+5,50,1322.93,166.75,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:025-sm:013.sp,msat,cgs,15,<>G((p -> <1>X(q))),1489.67,2,2
+3,31,582.63,5.01,atl,"(! <0,1>F(p))",True,test_suite/large_cgs/CGS/f:07-nm:030-sm:023.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),587.64,2,3
+2,30,159.11,1.27,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:015-sm:023.sp,msat,cgs,15,<1>X(p),160.38,2,2
+5,30,16.41,0.56,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:015-sm:003.sp,msat,cgs,15,<>G((p -> <1>X(q))),16.98,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:05-nm:025-sm:018.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",0,2,2
+5,10,309.01,88.56,atl,<>X((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:005-sm:023.sp,msat,cgs,15,<>G((p -> <1>X(q))),397.57,2,2
+2,10,0.66,0.02,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:005-sm:008.sp,msat,cgs,15,<0>F(p),0.68,2,2
+4,40,137.71,3.84,atl,<>G((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:020-sm:008.sp,msat,cgs,15,<>G((p -> <1>G(p))),141.55,2,2
+5,20,235.45,19.19,atl,<>G((p -> <0>(p U r))),True,test_suite/large_cgs/CGS/f:07-nm:010-sm:013.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),254.64,2,3
+2,40,50.32,0.43,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:020-sm:013.sp,msat,cgs,15,<1>X(p),50.75,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:05-nm:030-sm:018.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",0,2,2
+,30,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:015-sm:018.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+2,20,73.03,0.92,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:010-sm:023.sp,msat,cgs,15,<0>F(p),73.95,2,2
+5,20,49.41,11.94,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:010-sm:008.sp,msat,cgs,15,<>G((p -> <1>X(q))),61.35,2,2
+5,40,842.66,142.22,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:020-sm:013.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",984.89,2,2
+6,10,104.93,116.78,atl,<>G((p -> (<1>G(p) | q))),True,test_suite/large_cgs/CGS/f:03-nm:005-sm:013.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),221.71,2,2
+6,20,380.61,176.12,atl,<>G(((p -> <1>G(p)) | q)),True,test_suite/large_cgs/CGS/f:03-nm:010-sm:013.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),556.73,2,2
+4,10,7.01,0.52,atl,<1>X(<0>X(<>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:005-sm:008.sp,msat,cgs,15,<>G((p -> <1>X(q))),7.53,2,2
+2,10,18.88,0.43,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:005-sm:023.sp,msat,cgs,15,<0>F(p),19.31,2,2
+4,40,2366.62,19.29,atl,<>G((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:020-sm:023.sp,msat,cgs,15,<>G((p -> <1>G(p))),2385.9,2,2
+2,50,215.3,1.11,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:025-sm:018.sp,msat,cgs,15,<1>X(p),216.41,2,2
+2,30,0.83,0.02,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:015-sm:003.sp,msat,cgs,15,<0>F(p),0.84,2,2
+4,60,31.96,0.29,atl,<>G((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:030-sm:003.sp,msat,cgs,15,<>G((p -> <1>G(p))),32.25,2,2
+6,50,67.98,6.62,atl,<>G((<1>G(p) | (p -> q))),True,test_suite/large_cgs/CGS/f:03-nm:025-sm:003.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),74.6,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:06-nm:030-sm:018.sp,msat,cgs,15,<>G((p -> <1>X(q))),0,2,2
+3,10,60.54,1.34,atl,"<>G(<0,1>F(q))",True,test_suite/large_cgs/CGS/f:05-nm:005-sm:023.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",61.89,2,2
+,40,0,0,atl,,,test_suite/large_cgs/CGS/f:03-nm:020-sm:023.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),0,2,2
+4,20,112.21,3.97,atl,<>G((p -> <1>X(p))),True,test_suite/large_cgs/CGS/f:04-nm:010-sm:013.sp,msat,cgs,15,<>G((p -> <1>G(p))),116.18,2,2
+2,10,1.06,0.03,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:005-sm:008.sp,msat,cgs,15,<1>X(p),1.1,2,2
+4,40,123.94,2.2,atl,"(! <0,1>X(<0>F(p)))",True,test_suite/large_cgs/CGS/f:07-nm:020-sm:008.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),126.14,2,3
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:06-nm:025-sm:018.sp,msat,cgs,15,<>G((p -> <1>X(q))),0,2,2
+5,30,10.59,0.4,atl,"<>G((p -> <0,1>X(q)))",True,test_suite/large_cgs/CGS/f:05-nm:015-sm:003.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",10.98,2,2
+6,60,101.91,4.53,atl,<>G(((p -> q) | <1>G(p))),True,test_suite/large_cgs/CGS/f:03-nm:030-sm:003.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),106.44,2,2
+2,30,0.91,0.02,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:015-sm:003.sp,msat,cgs,15,<1>X(p),0.93,2,2
+3,60,10.27,0.09,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:030-sm:003.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),10.37,2,3
+2,50,220.81,1.16,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:025-sm:018.sp,msat,cgs,15,<0>F(p),221.97,2,2
+4,10,7.77,0.3,atl,(<1>F(p) -> <1>X(p)),True,test_suite/large_cgs/CGS/f:05-nm:005-sm:008.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",8.07,2,2
+6,40,368.0,229.45,atl,<>G((<1>G(p) | (p -> q))),True,test_suite/large_cgs/CGS/f:03-nm:020-sm:008.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),597.45,2,2
+2,10,18.64,0.4,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:005-sm:023.sp,msat,cgs,15,<1>X(p),19.05,2,2
+3,21,271.26,4.19,atl,"(! <0,1>F(p))",True,test_suite/large_cgs/CGS/f:07-nm:020-sm:023.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),275.45,2,3
+2,20,66.14,0.84,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:010-sm:023.sp,msat,cgs,15,<1>X(p),66.98,2,2
+5,40,831.5,91.12,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:020-sm:013.sp,msat,cgs,15,<>G((p -> <1>X(q))),922.62,2,2
+5,20,49.39,13.35,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:010-sm:008.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",62.73,2,2
+4,30,624.78,20.45,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:015-sm:018.sp,msat,cgs,15,<>G((p -> <1>G(p))),645.23,2,2
+3,50,7.53,0.09,atl,<>G((! p)),True,test_suite/large_cgs/CGS/f:07-nm:025-sm:003.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),7.62,2,3
+4,10,63.18,4.3,atl,<1>G(<1>F(<0>G(q))),True,test_suite/large_cgs/CGS/f:03-nm:005-sm:018.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),67.48,2,2
+5,40,2110.87,160.45,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:020-sm:018.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",2271.32,2,2
+5,20,7.17,0.36,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:010-sm:003.sp,msat,cgs,15,<>G((p -> <1>X(q))),7.53,2,2
+6,30,885.78,1543.89,atl,"<>G((p -> <0,1>X((! <0>F(p)))))",True,test_suite/large_cgs/CGS/f:07-nm:015-sm:013.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),2429.67,2,3
+2,60,111.62,0.7,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:030-sm:013.sp,msat,cgs,15,<1>X(p),112.32,2,2
+4,50,202.92,1.55,atl,<>G((p -> <1>G(p))),True,test_suite/large_cgs/CGS/f:04-nm:025-sm:008.sp,msat,cgs,15,<>G((p -> <1>G(p))),204.48,2,2
+5,30,2370.45,173.83,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:015-sm:023.sp,msat,cgs,15,<>G((p -> <1>X(q))),2544.28,2,2
+5,10,1.74,0.19,atl,<0>G((p -> <>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:005-sm:003.sp,msat,cgs,15,<>G((p -> <1>X(q))),1.93,2,2
+6,20,813.85,856.13,atl,<>G(((p -> q) | <1>G(p))),True,test_suite/large_cgs/CGS/f:03-nm:010-sm:018.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),1669.98,2,2
+2,10,0.17,0.01,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:005-sm:003.sp,msat,cgs,15,<0>F(p),0.18,2,2
+5,50,1216.94,59.81,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:025-sm:013.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",1276.75,2,2
+5,30,107.11,11.5,atl,<>G((p -> <1>X(q))),True,test_suite/large_cgs/CGS/f:06-nm:015-sm:008.sp,msat,cgs,15,<>G((p -> <1>X(q))),118.61,2,2
+,60,0,0,atl,,,test_suite/large_cgs/CGS/f:04-nm:030-sm:023.sp,msat,cgs,15,<>G((p -> <1>G(p))),0,2,2
+2,30,166.63,1.31,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:015-sm:023.sp,msat,cgs,15,<0>F(p),167.94,2,2
+,50,0,0,atl,,,test_suite/large_cgs/CGS/f:04-nm:025-sm:023.sp,msat,cgs,15,<>G((p -> <1>G(p))),0,2,2
+6,30,898.21,761.83,atl,<>G((<1>X(p) | (p -> q))),True,test_suite/large_cgs/CGS/f:03-nm:015-sm:013.sp,msat,cgs,15,<>G(((p & (! q)) -> <1>G(p))),1660.04,2,2
+5,60,1848.54,70.9,atl,"<>G((p -> <0,1>F(q)))",True,test_suite/large_cgs/CGS/f:05-nm:030-sm:013.sp,msat,cgs,15,"<>G((p -> <0,1>F(q)))",1919.43,2,2
+2,20,0.46,0.01,atl,<0>F(p),True,test_suite/large_cgs/CGS/f:02-nm:010-sm:003.sp,msat,cgs,15,<0>F(p),0.47,2,2
+3,10,25.9,0.5,atl,"(! <0,1>X(p))",True,test_suite/large_cgs/CGS/f:07-nm:005-sm:018.sp,msat,cgs,15,<>G((p -> <0>X((r & (<1>X(q) & <1>G((! q))))))),26.41,2,3
+2,40,135.51,0.92,atl,<1>X(p),True,test_suite/large_cgs/CGS/f:01-nm:020-sm:018.sp,msat,cgs,15,<1>X(p),136.43,2,2
