@@ -59,7 +59,6 @@ class SampleKripke(Sample):
 			
 			#if len(info) == 1:
 
-			print(len(info))
 			if len(info) == 2:
 				positive_str, negative_str = info
 				self.formula = None

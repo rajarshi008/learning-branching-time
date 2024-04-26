@@ -1,0 +1,15 @@
+{
+    "Sample": "sample_kr.sp",
+    "Sample size": 20,
+    "Size Bound": 20,
+    "Solver": "msat",
+    "Encoding Time": 21.21,
+    "Solving Time": 1.16,
+    "Total Time": 22.37,
+    "Original Formula": "AG(AF(p))",
+    "Learned Formula": "AG(AF(p))",
+    "Learned Formula Size": 3,
+    "Model Type": "kripke",
+    "Formula Type": "ctl",
+    "Verification": true
+}

@@ -180,6 +180,7 @@ class LearnFramework:
 
 
 def main():
+
 	parser = argparse.ArgumentParser(description='Parameters for the learning algo')
 	parser.add_argument('-f', '--input_file', default='sample_cgs.sp', help='The input sample file')
 	parser.add_argument('-s', '--formula_size', default=20, type=int, help='The size of the formula')
@@ -188,15 +189,13 @@ def main():
 	parser.add_argument('-j', '--json_file', default='metadata.json', help='The json file to store metadata')
 	parser.add_argument('-g', '--game', action='store_true', default=False, help='Input is a CGS sample file')
 	parser.add_argument('-a', '--atl', action='store_true', default=False, help='Learn CTL instead of ATL')
-	
-	
 	#Learning optimizations
 	parser.add_argument('-n', '--neg_props', action='store_true', default=False, help='Negation optimization')
 	parser.add_argument('-w', '--without_until', action='store_true', default=False, help='Without Until operator')
 	
 	args = parser.parse_args()
 
-	#print(f"Input file: {args.input_file}")
+	print(f"Input file: {args.input_file}")
 	#print(f"Formula size: {args.formula_size}")
 	#print(f"CTL operators: {args.operators}")
 
@@ -209,7 +208,8 @@ def main():
 		args.operators = ctl_operators
 		if args.without_until:
 			args.operators = [op for op in ctl_operators if op != 'AU' and op != 'EU']
-			
+	
+
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							operators=args.operators, solver_name=args.solver, \
 							cgs=args.game, atl=args.atl)

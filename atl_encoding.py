@@ -16,7 +16,7 @@ class ATLSATEncoding:
 		self.binary_operators = [op for op in operators if op in atl_binary]
 		self.temporal_operators = [op for op in operators if op in atl_temporal]
 		self.operators_and_propositions = self.operators + self.propositions
-		self.turn_based = False
+		self.turn_based = True
 
 		# initializing the variables
 		self.x = {}
@@ -379,7 +379,6 @@ class ATLSATEncoding:
 			if operator in self.temporal_operators:
 				players = getValue(rowId, self.A, False)
 				operator = '<'+''.join(map(str, players))+'>'+operator
-				print(players)
 			return ATLFormula([operator, left_formula, None])
 		
 		elif operator in self.binary_operators:

@@ -1,7 +1,0 @@
-Size Bound,Sample size,Learned Formula,Encoding Time,Solving Time,Solver,Learned Formula Size,Original Formula,Total Time,Verification,Sample
-6,200,,0,0,z3,,((EG p) | (AF q)),0,,test_suite/random_2/Kripke/f:05-nw:100.sp
-6,200,(AG q),205.38,0.27,z3,2,(AG q),205.65,True,test_suite/random_2/Kripke/f:02-nw:100.sp
-6,200,,0,0,z3,,((AF p) & (EX q)),0,,test_suite/random_2/Kripke/f:04-nw:100.sp
-6,200,,0,0,z3,,(E(p U q)),0,,test_suite/random_2/Kripke/f:03-nw:100.sp
-6,200,(EF p),335.92,0.29,z3,2,(EF p),336.21,True,test_suite/random_2/Kripke/f:01-nw:100.sp
-6,200,(AG q),243.72,0.39,z3,2,((E(p U q)) & (AG q)),244.11,True,test_suite/random_2/Kripke/f:06-nw:100.sp

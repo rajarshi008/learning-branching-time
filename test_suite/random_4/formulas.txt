@@ -1,6 +1,0 @@
-AG(|(p,q));p,q
-AG(AF(p));p,q
-&(AG(AF(p)),AG(AF(q)));p,q
-AG(|(p,AX(q)));p,q
-AG(->(p,AF(q)));p,q
-AG(EF(q));p,q

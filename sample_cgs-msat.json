@@ -1,0 +1,17 @@
+{
+    "Sample": "sample_cgs.sp",
+    "Sample size": 40,
+    "Size Bound": 20,
+    "Solver": "msat",
+    "Players": 2,
+    "Propositions": 2,
+    "Encoding Time": 73.66,
+    "Solving Time": 1.56,
+    "Total Time": 75.22,
+    "Original Formula": "<>G((p -> <1>G(p)))",
+    "Learned Formula": "<>G((p -> <1>X(p)))",
+    "Learned Formula Size": 4,
+    "Model Type": "cgs",
+    "Formula Type": "atl",
+    "Verification": true
+}
