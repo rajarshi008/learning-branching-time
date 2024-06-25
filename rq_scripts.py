@@ -123,7 +123,7 @@ def main():
 		if all_files:
 			folder_path = 'test_suite/first_suite_CTL'
 		else:
-			folder_path = 'test_suite/first_suite_CTL_too_small'
+			folder_path = 'test_suite/first_suite_CTL_small'
 
 		sp_files = read_sp_files(folder_path)
 		for file in sp_files:
