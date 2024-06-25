@@ -1,0 +1,14 @@
+{
+    "Sample": "test_suite/first_suite_CTL_small/f:05-nm:030-sm:015.sp",
+    "Sample size": 60,
+    "Size Bound": 20,
+    "Solver": "msat",
+    "Encoding Time": 0,
+    "Solving Time": 0,
+    "Total Time": 0,
+    "Original Formula": "AG((!(p))|(!(q)))",
+    "Learned Formula": null,
+    "Learned Formula Size": null,
+    "Model Type": "kripke",
+    "Formula Type": "ctl"
+}

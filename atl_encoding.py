@@ -5,7 +5,7 @@ from pysmt.shortcuts import Symbol, And, Or, Implies, Solver, Not, ExactlyOne, B
 
 class ATLSATEncoding:
 	
-	def __init__(self, sample, propositions, operators, solver_name):
+	def __init__(self, sample, propositions, operators, solver_name, turn_based):
 		
 		self.solver = Solver(name=solver_name)
 		self.sample = sample
@@ -16,7 +16,7 @@ class ATLSATEncoding:
 		self.binary_operators = [op for op in operators if op in atl_binary]
 		self.temporal_operators = [op for op in operators if op in atl_temporal]
 		self.operators_and_propositions = self.operators + self.propositions
-		self.turn_based = True
+		self.turn_based = turn_based
 
 		# initializing the variables
 		self.x = {}

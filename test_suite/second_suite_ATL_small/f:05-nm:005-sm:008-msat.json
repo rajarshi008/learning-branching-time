@@ -1,0 +1,18 @@
+{
+    "Sample": "test_suite/second_suite_ATL_small/f:05-nm:005-sm:008.sp",
+    "Sample size": 10,
+    "Size Bound": 20,
+    "Solver": "msat",
+    "Players": 2,
+    "Propositions": 2,
+    "Encoding Time": 5.08,
+    "Solving Time": 0.53,
+    "Total Time": 5.61,
+    "Original Formula": "<>G((p -> <0,1>F(q)))",
+    "Learned Formula": "(<1>F(p) -> <1>X(p))",
+    "Learned Formula Size": 4,
+    "Model Type": "cgs",
+    "Formula Type": "atl",
+    "Turn-Based": true,
+    "Verification": true
+}

@@ -10,9 +10,10 @@ This program has been written in Python 3.10. It relies on PySMT for SAT solving
 
 - Clone this repository
    
-- Create a virtual python using the following:
+- Create and activate a virtual python environment:
 ```
 python3 -m venv venv
+source venv/bin/activate
 ```
 
 - Install the requirements
@@ -44,4 +45,39 @@ We allow the following parameters for the learning algorithm:
 | `-n`         | `--neg_props`   | `False`       | Using NNF syntax tree |
 | `-w`         | `--without_until`| `False`      | Without Until operator |
 
-For the format of the sample of structures, we refer the users to check the .sp files presented in the repository.
+In the benchmark files, Kripke structures are represented as follows:
+```
+Intial state
+---
+Labels
+---
+Transitions
+```
+Concurrent Game structures are represented as follows:
+```
+Intial state
+---
+Labels with players
+---
+Transitions
+---
+Player set
+```
+The set of positive and negative examples are separated by `---\n---\n---`, while examples the both the sets is separated by `---\n---`
+
+
+## Running experiments
+
+For running the experiment presented in research paper, one can use the following script:
+```bash
+python rq_scripts.py [-e EXP_NUM] [-t TIMEOUT] [-a ALL]
+```
+with the following parameters:
+| Short Option | Long Option     | Default Value | Description |
+|--------------|-----------------|---------------|-------------|
+| `-e`         | `--exp`  | `ctl` | Choice of experiment, `ctl`, `ctl_wu`, `atl`, `atl_tb` |
+| `-t`         | `--timeout`| `900`          | Choice of timeout |
+| `-a`         | `--all`   | `False`          | Whether to run on all benchmarks |
+
+The choices of experiments `ctl`, `ctl_wu`, `atl`, `atl_tb` represent CTL learning, CTL learning without U (until) operator, ATL learning and ATL learning with turn-based encoding, the four experiments presented in the paper. By default, the experiments will run on a small subset of the entire benchmark suite.
+Using option `-a` starts running the code on the entire benchmark suite, which can highly resource intensive. The entire set of experiments for the paper were run on several cluster machines using mutiple cores. The output will be generated in a csv file with a name corresponding to the experiment name.

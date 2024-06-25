@@ -1,0 +1,17 @@
+{
+    "Sample": "test_suite/second_suite_ATL_small/f:04-nm:010-sm:008.sp",
+    "Sample size": 20,
+    "Size Bound": 20,
+    "Solver": "msat",
+    "Players": 2,
+    "Propositions": 2,
+    "Encoding Time": 0,
+    "Solving Time": 0,
+    "Total Time": 0,
+    "Original Formula": "<>G((p -> <1>G(p)))",
+    "Learned Formula": null,
+    "Learned Formula Size": null,
+    "Model Type": "cgs",
+    "Formula Type": "atl",
+    "Turn-Based": true
+}

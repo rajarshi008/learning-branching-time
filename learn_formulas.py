@@ -10,7 +10,7 @@ import cProfile
 class LearnFramework:
 
 	def __init__(self, sample_file='tests/inputs/example_sample.sp', size_bound=10,\
-			  			 operators=ctl_operators, solver_name='z3', cgs=False, atl=False):
+			  			 operators=ctl_operators, solver_name='z3', cgs=False, atl=False, turn=True):
 		self.sample_file = sample_file
 		self.size_bound = size_bound
 		self.operators = operators
@@ -19,6 +19,7 @@ class LearnFramework:
 		self.cgs = cgs
 		self.formula_type = 'atl' if atl else 'ctl'
 		self.model_type = 'cgs' if cgs else 'kripke'
+		self.turn = turn
 
 		# Time stats
 		self.enc_time = 0
@@ -44,7 +45,7 @@ class LearnFramework:
 							'Encoding Time':self.enc_time,'Solving Time': self.solving_time, 
 							'Total Time': self.total_time, 'Original Formula': og_formula_text, 
 							'Learned Formula': self.learned_formula, 'Learned Formula Size': self.learned_formula_size,
-							'Model Type': self.model_type, 'Formula Type': self.formula_type
+							'Model Type': self.model_type, 'Formula Type': self.formula_type, 'Turn-Based': self.turn
 							}
 			
 		else:
@@ -68,6 +69,7 @@ class LearnFramework:
 
 	def learn_ctl(self, neg_props=False):
 		
+		print('Learning CTL Formula from sample %s'%self.sample_file)
 		formula = None
 		enc_time_incr = time.time()
 		enc = CTLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name, neg_props=neg_props)
@@ -120,10 +122,11 @@ class LearnFramework:
 
 	def learn_atl(self):
 		
+		print('Learning ATL Formula from sample %s'%self.sample_file)
 		formula = None
 
 		enc_time_incr = time.time()
-		enc = ATLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name)
+		enc = ATLSATEncoding(self.sample, self.sample.propositions, self.operators, self.solver_name, self.turn)
 		enc_time_incr = time.time() - enc_time_incr
 		self.enc_time += enc_time_incr
 
@@ -189,6 +192,7 @@ def main():
 	parser.add_argument('-j', '--json_file', default='metadata.json', help='The json file to store metadata')
 	parser.add_argument('-g', '--game', action='store_true', default=False, help='Input is a CGS sample file')
 	parser.add_argument('-a', '--atl', action='store_true', default=False, help='Learn CTL instead of ATL')
+	parser.add_argument('-t', '--turn', action='store_true', default=True, help='Turn-based Encoding')
 	#Learning optimizations
 	parser.add_argument('-n', '--neg_props', action='store_true', default=False, help='Negation optimization')
 	parser.add_argument('-w', '--without_until', action='store_true', default=False, help='Without Until operator')
@@ -212,12 +216,12 @@ def main():
 
 	learn = LearnFramework(sample_file=args.input_file, size_bound=args.formula_size,\
 							operators=args.operators, solver_name=args.solver, \
-							cgs=args.game, atl=args.atl)
+							cgs=args.game, atl=args.atl, turn=args.turn)
 	
 	if args.atl:
 		learn.learn_atl()
 	else:
-		learn.learn_ctl(neg_props=args.neg_props)
+		learn.learn_ctl()
 	
 
 if __name__ == "__main__":
