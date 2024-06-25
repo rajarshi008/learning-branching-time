@@ -68,16 +68,16 @@ The set of positive and negative examples are separated by `---\n---\n---`, whil
 
 ## Running experiments
 
-For running the experiment presented in research paper, one can use the following script:
+For running the experiments presented in the associated research paper, one can use the following script:
 ```bash
 python rq_scripts.py [-e EXP_NUM] [-t TIMEOUT] [-a ALL]
 ```
 with the following parameters:
 | Short Option | Long Option     | Default Value | Description |
 |--------------|-----------------|---------------|-------------|
-| `-e`         | `--exp`  | `ctl` | Choice of experiment, `ctl`, `ctl_wu`, `atl`, `atl_tb` |
+| `-e`         | `--exp`  | `ctl` | Choice of experiment: `ctl`, `ctl_wu`, `atl`, `atl_tb` |
 | `-t`         | `--timeout`| `900`          | Choice of timeout |
 | `-a`         | `--all`   | `False`          | Whether to run on all benchmarks |
 
-The choices of experiments `ctl`, `ctl_wu`, `atl`, `atl_tb` represent CTL learning, CTL learning without U (until) operator, ATL learning and ATL learning with turn-based encoding, the four experiments presented in the paper. By default, the experiments will run on a small subset of the entire benchmark suite.
-Using option `-a` starts running the code on the entire benchmark suite, which can highly resource intensive. The entire set of experiments for the paper were run on several cluster machines using mutiple cores. The output will be generated in a csv file with a name corresponding to the experiment name.
+The choices of experiments `ctl`, `ctl_wu`, `atl`, `atl_tb` represent CTL learning, CTL learning without U (until) operator, ATL learning and ATL learning with turn-based encoding, the four experiments presented in the paper. The output will be generated in a csv file with a name corresponding to the experiment name.
+By default, the experiments will run on a small subset of the entire benchmark suite. Using option `-a` starts running the code on the entire benchmark suite, which can be highly resource intensive. The entire set of experiments for the paper were run on several cluster machines using mutiple cores. 
